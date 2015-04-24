@@ -120,7 +120,7 @@
     "right": 64,
     "right_absent": 13,
     "left_untranslated": 76,
-    "left_absent": 81,
+    "left_absent": 80,
     "right_untranslated": 26,
     "intersection": 24,
     "left": 181
@@ -426,7 +426,7 @@
     "right": 21,
     "right_absent": 11,
     "left_untranslated": 121,
-    "left_absent": 59,
+    "left_absent": 58,
     "right_untranslated": 8,
     "intersection": 2,
     "left": 181

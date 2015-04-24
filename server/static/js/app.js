@@ -97,20 +97,25 @@ load_links = function(source, page, target) {
 };
 
 draw_convergence_mini_bar = function(stats) {
-  var max, r1, r2, ri, rua, rub, scale, svg;
+  var max, r1, r2, ri, rua, rub, scale, svg, x;
   svg = d3.select(document.createElement("div")).append("svg");
   max = stats["left"] + stats["right"] - stats["intersection"];
   scale = d3.scale.linear().domain([0, max]).range([0, 300]);
-  ri = scale(stats["intersection"]);
-  r1 = scale(stats["left_absent"]);
-  r2 = scale(stats["right_absent"]);
-  rua = scale(stats["left_untranslated"]);
-  rub = scale(stats["right_untranslated"]);
+  ri = parseInt(scale(stats["intersection"]));
+  r1 = parseInt(scale(stats["left_absent"]));
+  r2 = parseInt(scale(stats["right_absent"]));
+  rua = parseInt(scale(stats["left_untranslated"]));
+  rub = parseInt(scale(stats["right_untranslated"]));
+  x = 0;
   svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
-  svg.append("rect").attr("width", r1).attr("height", 20).attr("x", rua).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
-  svg.append("rect").attr("width", ri).attr("height", 20).attr("x", rua + r1).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.7);
-  svg.append("rect").attr("width", r2).attr("height", 20).attr("x", rua + r1 + ri).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
-  svg.append("rect").attr("width", rub).attr("height", 20).attr("x", rua + r1 + ri + r2).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
+  x += rua;
+  svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  x += r1;
+  svg.append("rect").attr("width", ri).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.7);
+  x += ri;
+  svg.append("rect").attr("width", r2).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  x += r2;
+  svg.append("rect").attr("width", rub).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
   return svg;
 };
 

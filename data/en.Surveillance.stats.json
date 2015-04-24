@@ -2,199 +2,199 @@
   "zh": {
     "right": 40,
     "right_absent": 10,
-    "left_untranslated": 213,
+    "left_untranslated": 215,
     "left_absent": 127,
     "right_untranslated": 6,
     "intersection": 24,
-    "left": 363
+    "left": 365
   },
   "ca": {
     "right": 39,
     "right_absent": 27,
-    "left_untranslated": 241,
-    "left_absent": 120,
+    "left_untranslated": 244,
+    "left_absent": 119,
     "right_untranslated": 9,
     "intersection": 3,
-    "left": 363
+    "left": 365
   },
   "cs": {
     "right": 7,
     "right_absent": 3,
-    "left_untranslated": 240,
-    "left_absent": 122,
+    "left_untranslated": 242,
+    "left_absent": 121,
     "right_untranslated": 2,
     "intersection": 2,
-    "left": 363
+    "left": 365
   },
   "ar": {
     "right": 30,
     "right_absent": 4,
-    "left_untranslated": 220,
+    "left_untranslated": 222,
     "left_absent": 138,
     "right_untranslated": 20,
     "intersection": 6,
-    "left": 363
+    "left": 365
   },
   "eu": {
     "right": 5,
     "right_absent": 2,
-    "left_untranslated": 278,
-    "left_absent": 85,
+    "left_untranslated": 279,
+    "left_absent": 86,
     "right_untranslated": 2,
     "intersection": 1,
-    "left": 363
+    "left": 365
   },
   "et": {
     "right": 8,
     "right_absent": 3,
-    "left_untranslated": 265,
-    "left_absent": 95,
+    "left_untranslated": 268,
+    "left_absent": 94,
     "right_untranslated": 3,
     "intersection": 2,
-    "left": 363
+    "left": 365
   },
   "es": {
     "right": 67,
     "right_absent": 36,
-    "left_untranslated": 189,
-    "left_absent": 155,
+    "left_untranslated": 192,
+    "left_absent": 154,
     "right_untranslated": 14,
     "intersection": 18,
-    "left": 363
+    "left": 365
   },
   "ru": {
     "right": 76,
     "right_absent": 11,
     "left_untranslated": 186,
-    "left_absent": 161,
+    "left_absent": 163,
     "right_untranslated": 48,
     "intersection": 17,
-    "left": 363
+    "left": 365
   },
   "pt": {
     "right": 12,
     "right_absent": 4,
-    "left_untranslated": 181,
-    "left_absent": 177,
+    "left_untranslated": 180,
+    "left_absent": 179,
     "right_untranslated": 2,
     "intersection": 6,
-    "left": 363
+    "left": 365
   },
   "no": {
     "right": 5,
     "right_absent": 5,
-    "left_untranslated": 226,
+    "left_untranslated": 228,
     "left_absent": 138,
     "right_untranslated": 0,
     "intersection": 0,
-    "left": 363
+    "left": 365
   },
   "ro": {
     "right": 1,
     "right_absent": 0,
-    "left_untranslated": 262,
+    "left_untranslated": 264,
     "left_absent": 101,
     "right_untranslated": 0,
     "intersection": 1,
-    "left": 363
+    "left": 365
   },
   "pl": {
     "right": 9,
     "right_absent": 6,
-    "left_untranslated": 213,
-    "left_absent": 149,
+    "left_untranslated": 214,
+    "left_absent": 150,
     "right_untranslated": 2,
     "intersection": 1,
-    "left": 363
+    "left": 365
   },
   "fr": {
     "right": 140,
     "right_absent": 89,
-    "left_untranslated": 152,
-    "left_absent": 187,
+    "left_untranslated": 154,
+    "left_absent": 186,
     "right_untranslated": 26,
-    "intersection": 24,
-    "left": 363
+    "intersection": 25,
+    "left": 365
   },
   "de": {
     "right": 250,
-    "right_absent": 152,
-    "left_untranslated": 155,
+    "right_absent": 150,
+    "left_untranslated": 156,
     "left_absent": 175,
     "right_untranslated": 65,
-    "intersection": 32,
-    "left": 363
+    "intersection": 34,
+    "left": 365
   },
   "da": {
     "right": 22,
     "right_absent": 13,
-    "left_untranslated": 253,
-    "left_absent": 108,
+    "left_untranslated": 254,
+    "left_absent": 109,
     "right_untranslated": 6,
     "intersection": 3,
-    "left": 363
+    "left": 365
   },
   "fi": {
     "right": 85,
-    "right_absent": 15,
-    "left_untranslated": 217,
+    "right_absent": 14,
+    "left_untranslated": 218,
     "left_absent": 81,
     "right_untranslated": 5,
-    "intersection": 64,
-    "left": 363
+    "intersection": 66,
+    "left": 365
   },
   "ja": {
     "right": 16,
     "right_absent": 13,
-    "left_untranslated": 205,
+    "left_untranslated": 207,
     "left_absent": 158,
     "right_untranslated": 3,
     "intersection": 0,
-    "left": 363
+    "left": 365
   },
   "he": {
     "right": 21,
-    "right_absent": 15,
-    "left_untranslated": 227,
-    "left_absent": 131,
+    "right_absent": 14,
+    "left_untranslated": 228,
+    "left_absent": 132,
     "right_untranslated": 2,
-    "intersection": 4,
-    "left": 363
+    "intersection": 5,
+    "left": 365
   },
   "ko": {
     "right": 4,
     "right_absent": 1,
-    "left_untranslated": 216,
+    "left_untranslated": 218,
     "left_absent": 146,
     "right_untranslated": 1,
     "intersection": 2,
-    "left": 363
+    "left": 365
   },
   "sv": {
     "right": 28,
     "right_absent": 15,
-    "left_untranslated": 217,
-    "left_absent": 135,
+    "left_untranslated": 218,
+    "left_absent": 136,
     "right_untranslated": 2,
     "intersection": 11,
-    "left": 363
+    "left": 365
   },
   "ur": {
     "right": 2,
     "right_absent": 0,
-    "left_untranslated": 296,
+    "left_untranslated": 298,
     "left_absent": 67,
     "right_untranslated": 1,
     "intersection": 1,
-    "left": 363
+    "left": 365
   },
   "ms": {
     "right": 98,
     "right_absent": 21,
-    "left_untranslated": 295,
+    "left_untranslated": 297,
     "left_absent": 63,
     "right_untranslated": 72,
     "intersection": 5,
-    "left": 363
+    "left": 365
   }
 }

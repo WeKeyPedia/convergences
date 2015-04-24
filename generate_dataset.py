@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division
+
+import os
+
 from math import ceil
 
 from collections import defaultdict
@@ -51,8 +54,10 @@ def get_lang_projection(pages, source, target):
 
   return convergence
 
-def replace_redirects(pages, lang):
+def replace_redirects(pages, lang, flat=True):
   results = set(pages)
+
+  results_dict = {}
 
   params = {
     "redirects": "",
@@ -71,7 +76,12 @@ def replace_redirects(pages, lang):
       results = results - set([ r["from"] for r in resp["query"]["redirects"]])
       results = results | set([ r["to"] for r in resp["query"]["redirects"]])
 
-  return list(results)
+      results_dict[r["from"]] = r["to"]
+
+  if flat:
+    return list(results)
+  else:
+    return results_dict
 
 def from_to(page, source, target, dataset_name, skip=False):
   p = wekeypedia.WikipediaPage(page, source)
@@ -83,38 +93,28 @@ def from_to(page, source, target, dataset_name, skip=False):
     with codecs.open("data/{0}/{1}.json".format(dataset_name, source), "w", "utf-8-sig") as f:
       json.dump(links, f, ensure_ascii=False, indent=2, separators=(',', ': '))
 
+
   links_translated = get_lang_projection(links, source, target)
-  links_translated = { x[0]: x[1] for x in links_translated }
+
+  links_translated_redirects = replace_redirects(list({ x[1] for x in links_translated }), target, False)
+
+  links_translated = { x[0]: links_translated_redirects.setdefault(x[1], x[1])  for x in links_translated }
 
   with codecs.open("data/{0}/{1}.{2}.json".format(dataset_name, source, target), "w", "utf-8-sig") as f:
     json.dump(links_translated, f, ensure_ascii=False, indent=2, separators=(',', ': '))
 
 
-def stats(page, source, target):
-  with codecs.open("data/{0}/{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
-    left_links = json.load(f)
+def m(args):
+  lang = args[0]
+  page = args[1]
+  p_lang = args[2]
+  p_title = args[3]
 
-  with codecs.open("data/{0}/{1}.{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
-    left_links_translated = json.load(f)
+  from_to(page, lang, p_lang, "{1}.{0}".format(p_title, p_lang))
+  from_to(p_title, p_lang, lang, "{1}.{0}".format(p_title, p_lang), skip=True)
 
-  with codecs.open("data/{0}/{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
-    right_links = json.load(f)
-
-  with codecs.open("data/{0}/{2}.{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
-    right_links_translated = json.load(f)
-
-  stats = {
-    left_untranslated: len(set(left_links) - { x[0] for x in left_links_translated.items() }),
-    left_absent: len( set(left_links) - { x[1] for x in right_links_translated.items() }),
-    common: len({ x[0] for x in left_links_translated.items()  } & { x[1] for x in right_links_translated.items() }),
-    right_absent: len( set(right_links) - { x[1] for x in left_links_translated.items() }),
-    right_untranslated: len(set(right_links) - set([ x[0] for x in right_links_translated.items() ]))
-  }
-
-  return stats
-
-if __name__ == "__main__":
-  source = "Revolution" # "Love"
+def compute_source(source):
+  # source = "Love" # "Love"
 
   p = wekeypedia.WikipediaPage(source)
 
@@ -122,7 +122,10 @@ if __name__ == "__main__":
 
   print("links: {0}".format(len(links)))
 
-  with codecs.open("data/{0}/{1}.json".format(source, p.lang), "w", "utf-8-sig") as f:
+  if not os.path.exists("data/{1}.{0}".format(source, p.lang)):
+      os.makedirs("data/{1}.{0}".format(source, p.lang))
+
+  with codecs.open("data/{1}.{0}/{1}.json".format(source, p.lang), "w", "utf-8-sig") as f:
     json.dump(links, f, ensure_ascii=False, indent=2, separators=(',', ': '))
 
   available_langs = { x["lang"]: x["*"] for x in p.get_langlinks() }
@@ -134,16 +137,17 @@ if __name__ == "__main__":
   #   from_to(page, lang, p.lang, p.title)
   #   from_to(p.title, p.lang, lang, p.title, skip=True)
 
-  def m(args):
-    lang = args[0]
-    page = args[1]
+  # map(m, available_langs.items())
 
-    from_to(page, lang, p.lang, p.title)
-    from_to(p.title, p.lang, lang, p.title, skip=True)
+  pool = ThreadPool(4)
 
-  pool = ThreadPool(8)
-
-  pool.map(m, available_langs.items())
+  pool.map(m, [ (x[0], x[1], p.lang, p.title) for x in available_langs.items() ] )
 
   pool.close()
   pool.join()
+
+if __name__ == "__main__":
+  sources = ["Love", "Revolution", "Wisdom", "Ethics", "Morality", "Surveillance"]
+  sources = [ "Ethics", "Morality", "Surveillance"]
+
+  map(compute_source, sources)

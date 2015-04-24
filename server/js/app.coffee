@@ -164,14 +164,15 @@ draw_convergence_mini_bar = (stats)->
   max = stats["left"] + stats["right"]  - stats["intersection"]
   scale = d3.scale.linear().domain([0, max]).range([0, 300])
 
-  ri = scale(stats["intersection"])
+  ri = parseInt(scale(stats["intersection"]))
 
-  r1 = scale(stats["left_absent"])
-  r2 = scale(stats["right_absent"])
+  r1 = parseInt(scale(stats["left_absent"]))
+  r2 = parseInt(scale(stats["right_absent"]))
 
-  rua = scale(stats["left_untranslated"])
-  rub = scale(stats["right_untranslated"])
+  rua = parseInt(scale(stats["left_untranslated"]))
+  rub = parseInt(scale(stats["right_untranslated"]))
 
+  x = 0
   svg.append("rect")
     .attr("width", rua)
     .attr("height", 20)
@@ -181,37 +182,41 @@ draw_convergence_mini_bar = (stats)->
     .attr("fill", "red")
     .attr("opacity", 0.25)
 
+  x += rua
   svg.append("rect")
     .attr("width", r1)
     .attr("height", 20)
-    .attr("x", rua)
+    .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
     .attr("fill", "red")
     .attr("opacity", 0.4)
 
+  x += r1
   svg.append("rect")
     .attr("width", ri)
     .attr("height", 20)
-    .attr("x", rua + r1)
+    .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
     .attr("fill", "red")
     .attr("opacity", 0.7)
 
+  x += ri
   svg.append("rect")
     .attr("width", r2)
     .attr("height", 20)
-    .attr("x", rua + r1 + ri)
+    .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
     .attr("fill", "red")
     .attr("opacity", 0.4)
 
+  x += r2
   svg.append("rect")
     .attr("width", rub)
     .attr("height", 20)
-    .attr("x", rua + r1 + ri + r2)
+    .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
     .attr("fill", "red")

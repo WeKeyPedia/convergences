@@ -70,11 +70,11 @@ def get_page_correspondances(lang, page, target):
   response["pages"][lang] = page
   response["pages"][target] = langs[target]
 
-  source_links = codecs.open("{0}/{2}/{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
-  target_links = codecs.open("{0}/{2}/{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  source_links = codecs.open("{0}/{1}.{2}/{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  target_links = codecs.open("{0}/{1}.{2}/{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
 
-  target_lang = codecs.open("{0}/{2}/{3}.{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
-  lang_target = codecs.open("{0}/{2}/{1}.{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  target_lang = codecs.open("{0}/{1}.{2}/{3}.{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  lang_target = codecs.open("{0}/{1}.{2}/{1}.{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
 
   response["links"][lang] = json.load(source_links)
   response["links"][target] = json.load(target_links)
