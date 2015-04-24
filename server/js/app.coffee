@@ -67,13 +67,20 @@ load_links = (source, page, target)->
   $.get "/api/#{source}/#{page}/#{target}", (data)->
     div = $(document.createElement('div'))
 
+    $.get "/api/#{source}/#{page}", (data)=>
+      console.log source
+      svg = $(document.createElement('div'))
+        .addClass("convergence-viz")
+        .append(draw_convergence(data["stats"][target])[0])
+        .prependTo(div)
+
     target_page = data["pages"][target]
 
     source_href = "http://#{source}.wikipedia.org/wiki/#{page}"
     target_href = "http://#{target}.wikipedia.org/wiki/#{target_page}"
 
-    source_a = "<a href=#{source_href}>[#{source}] #{page}</a>"
-    target_a = "<a href=#{target_href}>[#{target}] #{target_page}</a>"
+    source_a = "<a href=#{source_href}>#{page} <span>#{source}</span></a>"
+    target_a = "<a href=#{target_href}>#{target_page} <span>#{target}</span></a>"
 
     source_links = data["translations"][source]
     target_links = data["translations"][target]
@@ -81,79 +88,78 @@ load_links = (source, page, target)->
     source_untranslated = data["untranslated"][source]
     target_untranslated = data["untranslated"][target]
 
+
+    list = (items, direction)->
+      d = $(document.createElement('div')).addClass("list")
+
+      _(items).each (i)->
+        a = $(document.createElement('a'))
+          .attr("href", "http://#{direction}.wikipedia.org/wiki/#{i}")
+          .html(i)
+          .appendTo(d)
+
+      d
+
     intersection = $(document.createElement('div'))
       .appendTo(div)
 
-    intersection.append($(document.createElement('h3')).addClass("small").html("Common links"))
+    intersection_h = $(document.createElement('h3'))
+      .addClass("small")
+      .html("Common links between #{source_a} and #{target_a}")
+      .appendTo(intersection)
 
     i = _.intersection(_(source_links).keys(), _(target_links).values())
 
-    _(i).each (link)->
-      a = $(document.createElement('a'))
-        .attr("href", "http://#{source}.wikipedia.org/wiki/#{link}")
-        .html(link)
-        .appendTo(intersection)
+    list(i, source)
+      .appendTo(intersection)
 
     left_absent = $(document.createElement('div'))
       .appendTo(div)
 
     left_absent_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Absent links from #{source_a} to #{target_a} ")
+      .html("Links which are on #{source_a} but not on #{target_a} ")
       .appendTo(left_absent)
 
     la = _.difference(_(source_links).keys(), _(target_links).values())
 
-    _(la).each (link)->
-      a = $(document.createElement('a'))
-        .attr("href", "http://#{source}.wikipedia.org/wiki/#{link}")
-        .html(link)
-        .appendTo(left_absent)
+    list(la, source)
+      .appendTo(left_absent)
 
     right_absent = $(document.createElement('div'))
       .appendTo(div)
 
     right_absent_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Absent links from #{target_a} to #{source_a} ")
+      .html("Links which are on #{target_a} but not on #{source_a} ")
       .appendTo(right_absent)
 
     ra = _.difference(_(target_links).keys(), _(source_links).values())
 
-    _(ra).each (link)->
-      a = $(document.createElement('a'))
-        .attr("href", "http://#{target}.wikipedia.org/wiki/#{link}")
-        .html(link)
-        .appendTo(right_absent)
+    list(ra, target)
+      .appendTo(right_absent)
 
     left_untranslated = $(document.createElement('div'))
       .appendTo(div)
 
     left_untranslated_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Untranslated links from #{source_a}")
+      .html("Links from #{source_a} which have no translation on #{target}.wikipedia.org")
       .appendTo(left_untranslated)
 
-    _(source_untranslated).each (link)->
-      a = $(document.createElement('a'))
-        .attr("href", "http://#{source}.wikipedia.org/wiki/#{link}")
-        .html(link)
-        .appendTo(left_untranslated)
+    list(source_untranslated, source)
+      .appendTo(left_untranslated)
 
     right_untranslated = $(document.createElement('div'))
       .appendTo(div)
 
     right_untranslated_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Untranslated links from #{target_a}")
+      .html("Links from #{target_a} which have no translation on #{source}.wikipedia.org")
       .appendTo(right_untranslated)
 
-    _(target_untranslated).each (link)->
-      a = $(document.createElement('a'))
-        .attr("href", "http://#{target}.wikipedia.org/wiki/#{link}")
-        .html(link)
-        .appendTo(right_untranslated)
-
+    list(target_untranslated, source)
+      .appendTo(right_untranslated)
 
     $("#list-links").html(div)
 
@@ -224,14 +230,16 @@ draw_convergence_mini_bar = (stats)->
 
   return svg
 
-draw_convergence_mini = (stats)->
-  svg = d3.select(document.createElement("div")).append("svg").attr("width", 300).attr("height", 200)
+draw_convergence = (stats)->
+  svg = d3.select(document.createElement("div"))
+    .append("svg")
+    .attr("width", 400)
+    .attr("height", 200)
 
   max = d3.max(_(stats).values())
   scale = d3.scale.linear().domain([0, max]).range([10, 100])
 
   ri = scale(stats["intersection"])
-#  ri = 50
 
   rua = scale(stats["left_untranslated"])
   rub = scale(stats["right_untranslated"])
@@ -241,36 +249,51 @@ draw_convergence_mini = (stats)->
   ra = scale(stats["left"])
   rb = scale(stats["right"])
 
-  offset = 150
+  # ri = 50
+  # r1 = 50
+  # r2 = 50
 
-  svg.append("circle")
-    .attr("r", ra)
-    .attr("cx", - (ra - r1) - ri*2)
-    .attr("cy", 100)
-    .attr("stroke", "black")
-    .attr("fill", "none")
-    .attr("opacity", 0.4)
+  offset = 400 * 0.5 - (r1 + r2 - ri)
+  # svg.append("circle")
+  #   .attr("r", r1 + r2 - ri)
+  #   .attr("cx", 200)
+  #   .attr("cy", 100)
+  #   .attr("stroke", "red")
+  #   .attr("fill", "none")
+  #   .attr("opacity", 0.4)
 
+  x = offset + r1
   svg.append("circle")
     .attr("r", r1)
-    .attr("cx", 0 )
+    .attr("cx", x)
     .attr("cy", 100)
-    .attr("opacity", 0.4)
     .attr("stroke", "none")
+    .attr("fill", "red")
+    .attr("opacity", 0.4)
 
+  svg.append("circle")
+    .attr("r", rua)
+    .attr("cx", x - r1 + rua)
+    .attr("cy", 100)
+    .attr("stroke", "none")
+    .attr("fill", "white")
+    .attr("opacity", 0.4)
+
+  x += r1 + r2 - 2*ri
   svg.append("circle")
     .attr("r", r2)
-    .attr("cx", r1 + r2 - ri*2)
+    .attr("cx", x)
     .attr("cy", 100)
-    .attr("opacity", 0.4)
     .attr("stroke", "none")
+    .attr("fill", "red")
+    .attr("opacity", 0.4)
 
   svg.append("circle")
-    .attr("r", rb)
-    .attr("cx", r1 + rb)
+    .attr("r", rub)
+    .attr("cx", x + r2 - rub)
     .attr("cy", 100)
-    .attr("stroke", "black")
-    .attr("fill", "none")
+    .attr("stroke", "none")
+    .attr("fill", "white")
     .attr("opacity", 0.4)
 
   return svg

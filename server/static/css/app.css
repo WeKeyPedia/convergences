@@ -46,8 +46,10 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 
 #list-links {
   float: left;
-  width: 300px;
+  width: 400px;
+  /* border-right: 1px solid #d6d6d6; */
 }
 
-#list-links div a { margin-right: 10px; }
-#list-links h3 a { margin-right: 0px; }
+#list-links .list a { margin-right: 1em; }
+#list-links h3 { border-bottom : 1px solid #d6d6d6; padding-bottom : 2px; }
+#list-links h3 a span { margin-right: 1em; color: #a2a2a2; margin: 0}
