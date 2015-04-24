@@ -1,0 +1,7 @@
+nltk
+networkx
+requests
+mwparserfromhell
+colorama
+beautifulsoup4
+numpy

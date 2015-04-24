@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: wekeypedia
+Version: 0.1.4
+Summary: toolkit to build datasets around wikipedia pages and to compute extra metrics
+Home-page: https://github.com/wekeypedia/toolkit-python
+Author: tam kien duong
+Author-email: tk@deveha.com
+License: UNKNOWN
+Download-URL: https://github.com/WeKeyPedia/toolkit-python/archive/0.1.4.tar.gz
+Description: UNKNOWN
+Keywords: wikipedia,information retrieval,api,data
+Platform: UNKNOWN
