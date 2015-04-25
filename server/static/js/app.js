@@ -1,4 +1,4 @@
-var draw_convergence, draw_convergence_mini_bar, load_convergences, load_links, load_pages;
+var draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, load_convergences, load_links, load_pages;
 
 load_pages = function(data) {
   return _(data).each(function(pages, lang) {
@@ -24,10 +24,11 @@ load_convergences = function(lang, page) {
     var div, sorted, source_lang, source_page;
     div = $(document.createElement('div'));
     sorted = _(_.pairs(data["stats"])).sortBy(function(a) {
-      return -a[1]["intersection"];
+      return -((a[1]["intersection"] / a[1]["left"]) + (a[1]["intersection"] / a[1]["left"])) * 0.5;
     });
     source_lang = lang;
     source_page = page;
+    load_links(lang, page, sorted[0][0]);
     _(sorted).each(function(array) {
       var h, lg, panel, svg;
       lang = array[0];
@@ -50,13 +51,6 @@ load_links = function(source, page, target) {
   return $.get("/api/" + source + "/" + page + "/" + target, function(data) {
     var div, i, intersection, intersection_h, la, left_absent, left_absent_h, left_untranslated, left_untranslated_h, list, ra, right_absent, right_absent_h, right_untranslated, right_untranslated_h, source_a, source_href, source_links, source_untranslated, target_a, target_href, target_links, target_page, target_untranslated;
     div = $(document.createElement('div'));
-    $.get("/api/" + source + "/" + page, (function(_this) {
-      return function(data) {
-        var svg;
-        console.log(source);
-        return svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence(data["stats"][target])[0]).prependTo(div);
-      };
-    })(this));
     target_page = data["pages"][target];
     source_href = "http://" + source + ".wikipedia.org/wiki/" + page;
     target_href = "http://" + target + ".wikipedia.org/wiki/" + target_page;
@@ -66,6 +60,12 @@ load_links = function(source, page, target) {
     target_links = data["translations"][target];
     source_untranslated = data["untranslated"][source];
     target_untranslated = data["untranslated"][target];
+    $.get("/api/" + source + "/" + page, (function(_this) {
+      return function(data) {
+        var svg;
+        return svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0]).prependTo(div);
+      };
+    })(this));
     list = function(items, direction) {
       var d;
       d = $(document.createElement('div')).addClass("list");
@@ -97,10 +97,28 @@ load_links = function(source, page, target) {
   });
 };
 
+draw_convergence_menu = function(stats, source, target) {
+  var div, i, intersection, la, left_absent, left_untranslated, lu, max, ra, right_absent, right_untranslated, ru, scale;
+  div = d3.select(document.createElement("div"));
+  lu = stats["left_untranslated"];
+  la = stats["left_absent"];
+  ru = stats["right_untranslated"];
+  ra = stats["right_absent"];
+  i = stats["intersection"];
+  max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"] + stats["intersection"];
+  scale = d3.scale.linear().domain([0, max]).range([10, 500]);
+  left_untranslated = $(document.createElement("div")).html(lu + " " + source + " links have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(lu)).appendTo(div);
+  left_absent = $(document.createElement("div")).html(la + " links of " + source + " are absent from " + target).css("background", "rgba(255,0,0,0.4)").height(scale(la)).appendTo(div);
+  intersection = $(document.createElement("div")).html(i + " common links").css("background", "rgba(255,0,0,0.7)").height(scale(i)).appendTo(div);
+  right_absent = $(document.createElement("div")).html(ra + " links of " + target + " are absent from " + source).css("background", "rgba(255,0,0,0.4)").height(scale(ra)).appendTo(div);
+  right_untranslated = $(document.createElement("div")).html(ru + " " + target + " links have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(ru)).appendTo(div);
+  return div;
+};
+
 draw_convergence_mini_bar = function(stats) {
   var max, r1, r2, ri, rua, rub, scale, svg, x;
   svg = d3.select(document.createElement("div")).append("svg");
-  max = stats["left"] + stats["right"] - stats["intersection"];
+  max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"] + stats["intersection"];
   scale = d3.scale.linear().domain([0, max]).range([0, 300]);
   ri = parseInt(scale(stats["intersection"]));
   r1 = parseInt(scale(stats["left_absent"]));
@@ -144,6 +162,5 @@ draw_convergence = function(stats) {
 
 $(document).ready(function() {
   $.get("/api/list", load_pages);
-  load_convergences("en", "Love");
-  return load_links("en", "Love", "fr");
+  return load_convergences("en", "Love");
 });

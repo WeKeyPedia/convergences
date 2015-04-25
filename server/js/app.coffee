@@ -26,10 +26,13 @@ load_convergences = (lang, page)->
   $.get "/api/#{lang}/#{page}", (data)->
     div = $(document.createElement('div'))
 
-    sorted = _(_.pairs(data["stats"])).sortBy (a)-> -a[1]["intersection"]
+    sorted = _(_.pairs(data["stats"])).sortBy (a)->
+      -((a[1]["intersection"]/a[1]["left"]) + (a[1]["intersection"]/a[1]["left"])) * 0.5
 
     source_lang = lang
     source_page = page
+
+    load_links(lang, page, sorted[0][0])
 
     _(sorted).each (array)->
       lang = array[0]
@@ -67,13 +70,6 @@ load_links = (source, page, target)->
   $.get "/api/#{source}/#{page}/#{target}", (data)->
     div = $(document.createElement('div'))
 
-    $.get "/api/#{source}/#{page}", (data)=>
-      console.log source
-      svg = $(document.createElement('div'))
-        .addClass("convergence-viz")
-        .append(draw_convergence(data["stats"][target])[0])
-        .prependTo(div)
-
     target_page = data["pages"][target]
 
     source_href = "http://#{source}.wikipedia.org/wiki/#{page}"
@@ -88,6 +84,12 @@ load_links = (source, page, target)->
     source_untranslated = data["untranslated"][source]
     target_untranslated = data["untranslated"][target]
 
+    $.get "/api/#{source}/#{page}", (data)=>
+      # console.log source
+      svg = $(document.createElement('div'))
+        .addClass("convergence-viz")
+        .append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
+        .prependTo(div)
 
     list = (items, direction)->
       d = $(document.createElement('div')).addClass("list")
@@ -163,11 +165,58 @@ load_links = (source, page, target)->
 
     $("#list-links").html(div)
 
+draw_convergence_menu = (stats, source, target)->
+  div = d3.select(document.createElement("div"))
+
+  lu = stats["left_untranslated"]
+  la = stats["left_absent"]
+
+  ru = stats["right_untranslated"]
+  ra = stats["right_absent"]
+
+  i = stats["intersection"]
+
+  max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"]  + stats["intersection"]
+  scale = d3.scale.linear().domain([0, max]).range([10, 500])
+
+  left_untranslated = $(document.createElement("div"))
+    .html("#{lu} #{source} links have no translation")
+    .css("background", "rgba(255,0,0,0.25)")
+    .height(scale(lu))
+    .appendTo(div)
+
+  left_absent = $(document.createElement("div"))
+    .html("#{la} links of #{source} are absent from #{target}")
+    .css("background", "rgba(255,0,0,0.4)")
+    .height(scale(la))
+    .appendTo(div)
+
+  intersection = $(document.createElement("div"))
+    .html("#{i} common links")
+    .css("background", "rgba(255,0,0,0.7)")
+    .height(scale(i))
+    .appendTo(div)
+
+  right_absent = $(document.createElement("div"))
+    .html("#{ra} links of #{target} are absent from #{source}")
+    .css("background", "rgba(255,0,0,0.4)")
+    .height(scale(ra))
+    .appendTo(div)
+
+  right_untranslated = $(document.createElement("div"))
+    .html("#{ru} #{target} links have no translation")
+    .css("background", "rgba(255,0,0,0.25)")
+    .height(scale(ru))
+    .appendTo(div)
+
+  return div
+
 draw_convergence_mini_bar = (stats)->
   svg = d3.select(document.createElement("div")).append("svg")
     # .attr("width", 300).attr("height", 20)
 
-  max = stats["left"] + stats["right"]  - stats["intersection"]
+  # max = stats["left"] + stats["right"]  - stats["intersection"]
+  max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"]  + stats["intersection"]
   scale = d3.scale.linear().domain([0, max]).range([0, 300])
 
   ri = parseInt(scale(stats["intersection"]))
@@ -301,4 +350,4 @@ draw_convergence = (stats)->
 $(document).ready ()->
   $.get("/api/list",load_pages)
   load_convergences("en", "Love")
-  load_links("en", "Love", "fr")
+  # load_links("en", "Love", "fr")
