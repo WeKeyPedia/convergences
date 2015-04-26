@@ -46,8 +46,8 @@ load_convergences = (lang, page)->
 
     load_links(lang, page, sorted[0][0])
 
-    $(draw_convergences_chart(sorted)[0])
-      .appendTo(div)
+    # $(draw_convergences_chart(sorted)[0])
+    #   .appendTo(div)
 
     _(sorted).each (array)->
       lang = array[0]
@@ -112,12 +112,12 @@ load_links = (source, page, target)->
       .html("Links of #{source_a} and #{target_a}")
       .appendTo(div)
 
-    svg = $(document.createElement('div'))
-      .addClass("convergence-viz")
-      .appendTo(div)
-
-    $.get "/api/#{source}/#{page}", (data)=>
-      svg.append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
+    # svg = $(document.createElement('div'))
+    #   .addClass("convergence-viz")
+    #   .appendTo(div)
+    #
+    # $.get "/api/#{source}/#{page}", (data)=>
+    #   svg.append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
 
     list = (items, direction)->
       d = $(document.createElement('div')).addClass("list")
@@ -130,62 +130,77 @@ load_links = (source, page, target)->
 
       return d
 
+    ############################################################################
+
+    i = _.intersection(_(source_links).keys(), _(target_links).values())
+
     intersection = $(document.createElement('div'))
+      .addClass("intersection")
       .appendTo(div)
 
     intersection_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Common links between #{source_a} and #{target_a}")
+      .html("#{i.length} common links between #{source_a} and #{target_a}")
       .appendTo(intersection)
-
-    i = _.intersection(_(source_links).keys(), _(target_links).values())
 
     list(i, source)
       .appendTo(intersection)
 
+    ############################################################################
+
+    la = _.difference(_(source_links).keys(), _(target_links).values())
+
     left_absent = $(document.createElement('div'))
+      .addClass("left_absent")
       .appendTo(div)
 
     left_absent_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Links which are on #{source_a} but not on #{target_a} ")
+      .html("#{la.length} links which are on #{source_a} but not on #{target_a} ")
       .appendTo(left_absent)
-
-    la = _.difference(_(source_links).keys(), _(target_links).values())
 
     list(la, source)
       .appendTo(left_absent)
 
+    ############################################################################
+
+    ra = _.difference(_(target_links).keys(), _(source_links).values())
+
     right_absent = $(document.createElement('div'))
+      .addClass("right_absent")
       .appendTo(div)
 
     right_absent_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Links which are on #{target_a} but not on #{source_a} ")
+      .html("#{ra.length} links which are on #{target_a} but not on #{source_a} ")
       .appendTo(right_absent)
-
-    ra = _.difference(_(target_links).keys(), _(source_links).values())
 
     list(ra, target)
       .appendTo(right_absent)
 
+    ############################################################################
+
     left_untranslated = $(document.createElement('div'))
+      .addClass("left_untranslated")
       .appendTo(div)
 
     left_untranslated_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Links from #{source_a} which have no translation on #{target}.wikipedia.org")
+      .html("#{source_untranslated.length} links from #{source_a} which have no translation on #{target}.wikipedia.org")
       .appendTo(left_untranslated)
 
     list(source_untranslated, source)
       .appendTo(left_untranslated)
 
+    ############################################################################
+
     right_untranslated = $(document.createElement('div'))
+      .addClass("right_untranslated")
       .appendTo(div)
 
     right_untranslated_h = $(document.createElement('h3'))
       .addClass("small")
-      .html("Links from #{target_a} which have no translation on #{source}.wikipedia.org")
+      .html("#{target_untranslated.length} links from #{target_a} which have no translation on #{source}.wikipedia.org")
       .appendTo(right_untranslated)
 
     list(target_untranslated, target)
@@ -242,10 +257,10 @@ draw_convergence_menu = (stats, source, target)->
   i = stats["intersection"]
 
   max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"]  + stats["intersection"]
-  scale = d3.scale.linear().domain([0, max]).range([10, 500])
+  scale = d3.scale.linear().domain([0, max]).range([30, 500])
 
   left_untranslated = $(document.createElement("div"))
-    .html("#{lu} #{source} links have no translation")
+    .html("#{lu} links from #{source} have no translation")
     .css("background", "rgba(255,0,0,0.25)")
     .height(scale(lu))
     .appendTo(div)
@@ -257,7 +272,7 @@ draw_convergence_menu = (stats, source, target)->
     .appendTo(div)
 
   intersection = $(document.createElement("div"))
-    .html("#{i} common links")
+    .html("#{i} common links between #{source} and #{target}")
     .css("background", "rgba(255,0,0,0.7)")
     .height(scale(i))
     .appendTo(div)
@@ -269,7 +284,7 @@ draw_convergence_menu = (stats, source, target)->
     .appendTo(div)
 
   right_untranslated = $(document.createElement("div"))
-    .html("#{ru} #{target} links have no translation")
+    .html("#{ru} links from #{target} have no translation")
     .css("background", "rgba(255,0,0,0.25)")
     .height(scale(ru))
     .appendTo(div)
@@ -301,8 +316,8 @@ draw_convergence_mini_bar = (stats)->
     .attr("x", 0)
     .attr("y", 0)
     .attr("stroke", "none")
-    .attr("fill", "red")
-    .attr("opacity", 0.25)
+    .attr("fill", "#cf75ff")
+    .attr("opacity", 0.35)
 
   if rua > 14
     svg.append("text")
@@ -319,8 +334,8 @@ draw_convergence_mini_bar = (stats)->
     .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
-    .attr("fill", "red")
-    .attr("opacity", 0.4)
+    .attr("fill", "#cf75ff")
+    .attr("opacity", 0.6)
 
   if r1 > 14
     svg.append("text")
@@ -337,8 +352,8 @@ draw_convergence_mini_bar = (stats)->
     .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
-    .attr("fill", "red")
-    .attr("opacity", 0.7)
+    .attr("fill", "#32ace9")
+    .attr("opacity", 0.9)
 
   if ri > 14
     svg.append("text")
@@ -355,8 +370,8 @@ draw_convergence_mini_bar = (stats)->
     .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
-    .attr("fill", "red")
-    .attr("opacity", 0.4)
+    .attr("fill", "#09c784")
+    .attr("opacity", 0.6)
 
   if r2 > 14
     svg.append("text")
@@ -373,8 +388,8 @@ draw_convergence_mini_bar = (stats)->
     .attr("x", x)
     .attr("y", 0)
     .attr("stroke", "none")
-    .attr("fill", "red")
-    .attr("opacity", 0.25)
+    .attr("fill", "#09c784")
+    .attr("opacity", 0.35)
 
   if rub > 14
     svg.append("text")

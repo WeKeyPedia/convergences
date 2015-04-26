@@ -39,7 +39,6 @@ load_convergences = function(lang, page) {
     source_page = page;
     h2 = $(document.createElement('h2')).addClass("title").html("Translations of <a href=\"http://" + source_lang + ".wikipedia.org/wiki/" + source_page + "\" class=\"page\">" + source_page + "<span class=\"lang\">" + source_lang + "</span></a>").appendTo(div);
     load_links(lang, page, sorted[0][0]);
-    $(draw_convergences_chart(sorted)[0]).appendTo(div);
     _(sorted).each(function(array) {
       var c_stat, convergence, h, lg, panel, svg;
       lang = array[0];
@@ -60,7 +59,7 @@ load_convergences = function(lang, page) {
 
 load_links = function(source, page, target) {
   return $.get("/api/" + source + "/" + page + "/" + target, function(data) {
-    var div, h2, i, intersection, intersection_h, la, left_absent, left_absent_h, left_untranslated, left_untranslated_h, list, ra, right_absent, right_absent_h, right_untranslated, right_untranslated_h, source_a, source_href, source_links, source_untranslated, svg, target_a, target_href, target_links, target_page, target_untranslated;
+    var div, h2, i, intersection, intersection_h, la, left_absent, left_absent_h, left_untranslated, left_untranslated_h, list, ra, right_absent, right_absent_h, right_untranslated, right_untranslated_h, source_a, source_href, source_links, source_untranslated, target_a, target_href, target_links, target_page, target_untranslated;
     div = $(document.createElement('div'));
     target_page = data["pages"][target];
     source_href = "http://" + source + ".wikipedia.org/wiki/" + page;
@@ -72,12 +71,6 @@ load_links = function(source, page, target) {
     source_untranslated = data["untranslated"][source];
     target_untranslated = data["untranslated"][target];
     h2 = $(document.createElement('h2')).addClass("title").html("Links of " + source_a + " and " + target_a).appendTo(div);
-    svg = $(document.createElement('div')).addClass("convergence-viz").appendTo(div);
-    $.get("/api/" + source + "/" + page, (function(_this) {
-      return function(data) {
-        return svg.append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0]);
-      };
-    })(this));
     list = function(items, direction) {
       var d;
       d = $(document.createElement('div')).addClass("list");
@@ -87,23 +80,23 @@ load_links = function(source, page, target) {
       });
       return d;
     };
-    intersection = $(document.createElement('div')).appendTo(div);
-    intersection_h = $(document.createElement('h3')).addClass("small").html("Common links between " + source_a + " and " + target_a).appendTo(intersection);
     i = _.intersection(_(source_links).keys(), _(target_links).values());
+    intersection = $(document.createElement('div')).addClass("intersection").appendTo(div);
+    intersection_h = $(document.createElement('h3')).addClass("small").html(i.length + " common links between " + source_a + " and " + target_a).appendTo(intersection);
     list(i, source).appendTo(intersection);
-    left_absent = $(document.createElement('div')).appendTo(div);
-    left_absent_h = $(document.createElement('h3')).addClass("small").html("Links which are on " + source_a + " but not on " + target_a + " ").appendTo(left_absent);
     la = _.difference(_(source_links).keys(), _(target_links).values());
+    left_absent = $(document.createElement('div')).addClass("left_absent").appendTo(div);
+    left_absent_h = $(document.createElement('h3')).addClass("small").html(la.length + " links which are on " + source_a + " but not on " + target_a + " ").appendTo(left_absent);
     list(la, source).appendTo(left_absent);
-    right_absent = $(document.createElement('div')).appendTo(div);
-    right_absent_h = $(document.createElement('h3')).addClass("small").html("Links which are on " + target_a + " but not on " + source_a + " ").appendTo(right_absent);
     ra = _.difference(_(target_links).keys(), _(source_links).values());
+    right_absent = $(document.createElement('div')).addClass("right_absent").appendTo(div);
+    right_absent_h = $(document.createElement('h3')).addClass("small").html(ra.length + " links which are on " + target_a + " but not on " + source_a + " ").appendTo(right_absent);
     list(ra, target).appendTo(right_absent);
-    left_untranslated = $(document.createElement('div')).appendTo(div);
-    left_untranslated_h = $(document.createElement('h3')).addClass("small").html("Links from " + source_a + " which have no translation on " + target + ".wikipedia.org").appendTo(left_untranslated);
+    left_untranslated = $(document.createElement('div')).addClass("left_untranslated").appendTo(div);
+    left_untranslated_h = $(document.createElement('h3')).addClass("small").html(source_untranslated.length + " links from " + source_a + " which have no translation on " + target + ".wikipedia.org").appendTo(left_untranslated);
     list(source_untranslated, source).appendTo(left_untranslated);
-    right_untranslated = $(document.createElement('div')).appendTo(div);
-    right_untranslated_h = $(document.createElement('h3')).addClass("small").html("Links from " + target_a + " which have no translation on " + source + ".wikipedia.org").appendTo(right_untranslated);
+    right_untranslated = $(document.createElement('div')).addClass("right_untranslated").appendTo(div);
+    right_untranslated_h = $(document.createElement('h3')).addClass("small").html(target_untranslated.length + " links from " + target_a + " which have no translation on " + source + ".wikipedia.org").appendTo(right_untranslated);
     list(target_untranslated, target).appendTo(right_untranslated);
     return $("#list-links").html(div);
   });
@@ -141,12 +134,12 @@ draw_convergence_menu = function(stats, source, target) {
   ra = stats["right_absent"];
   i = stats["intersection"];
   max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"] + stats["intersection"];
-  scale = d3.scale.linear().domain([0, max]).range([10, 500]);
-  left_untranslated = $(document.createElement("div")).html(lu + " " + source + " links have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(lu)).appendTo(div);
+  scale = d3.scale.linear().domain([0, max]).range([30, 500]);
+  left_untranslated = $(document.createElement("div")).html(lu + " links from " + source + " have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(lu)).appendTo(div);
   left_absent = $(document.createElement("div")).html(la + " links of " + source + " are absent from " + target).css("background", "rgba(255,0,0,0.4)").height(scale(la)).appendTo(div);
-  intersection = $(document.createElement("div")).html(i + " common links").css("background", "rgba(255,0,0,0.7)").height(scale(i)).appendTo(div);
+  intersection = $(document.createElement("div")).html(i + " common links between " + source + " and " + target).css("background", "rgba(255,0,0,0.7)").height(scale(i)).appendTo(div);
   right_absent = $(document.createElement("div")).html(ra + " links of " + target + " are absent from " + source).css("background", "rgba(255,0,0,0.4)").height(scale(ra)).appendTo(div);
-  right_untranslated = $(document.createElement("div")).html(ru + " " + target + " links have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(ru)).appendTo(div);
+  right_untranslated = $(document.createElement("div")).html(ru + " links from " + target + " have no translation").css("background", "rgba(255,0,0,0.25)").height(scale(ru)).appendTo(div);
   return div;
 };
 
@@ -162,27 +155,27 @@ draw_convergence_mini_bar = function(stats) {
   rua = parseInt(scale(stats["left_untranslated"]));
   rub = parseInt(scale(stats["right_untranslated"]));
   x = 0;
-  svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
+  svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.35);
   if (rua > 14) {
     svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
   }
   x += rua;
-  svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.6);
   if (r1 > 14) {
     svg.append("text").attr("x", x + r1 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
   }
   x += r1;
-  svg.append("rect").attr("width", ri).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.7);
+  svg.append("rect").attr("width", ri).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#32ace9").attr("opacity", 0.9);
   if (ri > 14) {
     svg.append("text").attr("x", x + ri * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["intersection"]);
   }
   x += ri;
-  svg.append("rect").attr("width", r2).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  svg.append("rect").attr("width", r2).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#09c784").attr("opacity", 0.6);
   if (r2 > 14) {
     svg.append("text").attr("x", x + r2 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_absent"]);
   }
   x += r2;
-  svg.append("rect").attr("width", rub).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
+  svg.append("rect").attr("width", rub).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#09c784").attr("opacity", 0.35);
   if (rub > 14) {
     svg.append("text").attr("x", x + rub * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_untranslated"]);
   }

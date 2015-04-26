@@ -10,12 +10,17 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
   vertical-align: sub;
 }
 
+h2 {
+  font-size: 18px;
+  border-bottom: 1px solid #d6d6d6;
+}
 
-#list-pages .lang {
+#list-pages h4 {
   color: #a2a2a2;
   font-size: 10px;
   font-weight: normal;
   border-bottom : 1px solid #d6d6d6;
+  margin-bottom : 5px;
 }
 
 #list-pages .page {
@@ -62,7 +67,7 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 #list-lang .page svg { height: 20px; }
 
 #list-lang svg text {
-  opacity: 0.60;
+  opacity: 0.80;
   fill: white;
   font-size : 10px;
   font-family: "Tahoma";
@@ -73,6 +78,21 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
   width: 400px;
   /* border-right: 1px solid #d6d6d6; */
 }
+
+#list-links h3::before{
+  content: " ";
+  vertical-align: bottom;
+  margin-right: 5px;
+  display: inline-block;
+  width:19px;
+  height: 19px;
+}
+
+#list-links .intersection h3::before{ background : rgba(50, 172, 233, 0.9); }
+#list-links .left_absent h3::before{ background : rgba(207, 117, 255, 0.6); }
+#list-links .left_untranslated h3::before{ background : rgba(207, 117, 255, 0.35); }
+#list-links .right_absent h3::before{ background : rgba(9, 199, 132, 0.6); }
+#list-links .right_untranslated h3::before{ background : rgba(9, 199, 132, 0.35); }
 
 #list-links .list a { margin-right: 1em; }
 #list-links h3 { border-bottom : 1px solid #d6d6d6; padding-bottom : 2px; }
