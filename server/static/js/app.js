@@ -35,17 +35,18 @@ load_convergences = function(lang, page) {
     source_page = page;
     load_links(lang, page, sorted[0][0]);
     _(sorted).each(function(array) {
-      var h, lg, panel, svg;
+      var c_stat, convergence, h, lg, panel, stats, svg;
       lang = array[0];
       page = data["langs"][lang];
       panel = $(document.createElement('div')).addClass("page").data("target_lang", lang).on("click", function() {
         return load_links(source_lang, source_page, $(this).data("target_lang"));
       });
-      h = $(document.createElement('div')).addClass("title").append($(document.createElement('span')).html(page));
+      h = $(document.createElement('div')).addClass("title").append($(document.createElement('span')).html(page)).appendTo(panel);
       lg = $(document.createElement('span')).addClass("lang").html(lang).appendTo(h);
-      svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_mini_bar(data["stats"][lang])[0]);
-      panel.append(h);
-      panel.append(svg);
+      stats = data["stats"][lang];
+      convergence = ((stats["intersection"] / stats["left"]) + (stats["intersection"] / stats["left"])) * 0.5;
+      c_stat = $(document.createElement('div')).addClass("convergence indicator").html(convergence.toFixed(3)).appendTo(panel);
+      svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_mini_bar(data["stats"][lang])[0]).appendTo(panel);
       return div.append(panel);
     });
     return $("#list-lang").html(div);
@@ -121,10 +122,11 @@ draw_convergence_menu = function(stats, source, target) {
 };
 
 draw_convergence_mini_bar = function(stats) {
-  var max, r1, r2, ri, rua, rub, scale, svg, x;
-  svg = d3.select(document.createElement("div")).append("svg");
+  var max, r1, r2, ri, rua, rub, scale, svg, w, x;
+  w = 500;
+  svg = d3.select(document.createElement("div")).append("svg").attr("width", w);
   max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"] + stats["intersection"];
-  scale = d3.scale.linear().domain([0, max]).range([0, 300]);
+  scale = d3.scale.linear().domain([0, max]).range([0, w]);
   ri = parseInt(scale(stats["intersection"]));
   r1 = parseInt(scale(stats["left_absent"]));
   r2 = parseInt(scale(stats["right_absent"]));
@@ -132,14 +134,29 @@ draw_convergence_mini_bar = function(stats) {
   rub = parseInt(scale(stats["right_untranslated"]));
   x = 0;
   svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
+  if (rua > 14) {
+    svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
+  }
   x += rua;
   svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  if (r1 > 14) {
+    svg.append("text").attr("x", x + r1 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
+  }
   x += r1;
   svg.append("rect").attr("width", ri).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.7);
+  if (ri > 14) {
+    svg.append("text").attr("x", x + ri * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["intersection"]);
+  }
   x += ri;
   svg.append("rect").attr("width", r2).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.4);
+  if (r2 > 14) {
+    svg.append("text").attr("x", x + r2 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_absent"]);
+  }
   x += r2;
   svg.append("rect").attr("width", rub).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "red").attr("opacity", 0.25);
+  if (rub > 14) {
+    svg.append("text").attr("x", x + rub * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_untranslated"]);
+  }
   return svg;
 };
 

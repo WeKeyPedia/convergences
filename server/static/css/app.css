@@ -1,6 +1,6 @@
 body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 
-#list-pages { float: left; width : 200px; }
+#list-pages { float: left; width : 200px; margin-right : 10px; }
 
 
 #list-pages .lang {
@@ -23,13 +23,12 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 #list-lang {
   float: left;
   width: 500px;
+  margin-right : 10px;
 }
 
 #list-lang .page  {
-  overflow: hidden;
   margin-bottom: 10px;
-  width: 460px;
-  clear:both;
+  position: relative;
 }
 
 #list-lang .page:hover {
@@ -37,18 +36,37 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
   background-color: #f0f0f0;
 }
 
-#list-lang .title { width: 160px; padding-right: 10px; text-align: right; float: left; }
-
-#list-lang .title .lang {
-  margin-left: 10px;
-  color: #a2a2a2;
-  display: inline-block;
-  min-width : 1em;
-  text-align: center;
+#list-lang .title {
+  padding-right: 10px;
+  text-align: left;
 }
 
-#list-lang .convergence-viz { width: 300px; text-align: right; float: left; }
+#list-lang .indicator {
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  color: #d6d6d6;
+}
+
+
+#list-lang .title .lang {
+  font-size: 0.8em;
+  padding-left: 2px;
+  color: #a2a2a2;
+  margin: 0;
+  vertical-align: sub;
+}
+
+#list-lang .convergence-viz { width: 500px; }
 #list-lang svg { height: 20px; }
+
+#list-lang svg text {
+  opacity: 0.60;
+  fill: white;
+  font-size : 10px;
+  font-family: "Tahoma";
+}
 
 #list-links {
   float: left;

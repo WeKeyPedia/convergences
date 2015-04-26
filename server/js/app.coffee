@@ -50,19 +50,28 @@ load_convergences = (lang, page)->
 
       h = $(document.createElement('div'))
         .addClass("title")
-        .append($(document.createElement('span')).html(page))
+        .append($(document.createElement('span'))
+        .html(page))
+        .appendTo(panel)
 
       lg = $(document.createElement('span'))
         .addClass("lang")
         .html(lang)
         .appendTo(h)
 
+      stats = data["stats"][lang]
+      convergence = ((stats["intersection"]/stats["left"]) + (stats["intersection"]/stats["left"])) * 0.5
+
+      c_stat = $(document.createElement('div'))
+        .addClass("convergence indicator")
+        .html(convergence.toFixed(3))
+        .appendTo(panel)
+
       svg = $(document.createElement('div'))
         .addClass("convergence-viz")
         .append(draw_convergence_mini_bar(data["stats"][lang])[0])
+        .appendTo(panel)
 
-      panel.append(h)
-      panel.append(svg)
 
       div.append(panel)
 
@@ -105,7 +114,7 @@ load_links = (source, page, target)->
           .html(i)
           .appendTo(d)
 
-      d
+      return d
 
     intersection = $(document.createElement('div'))
       .appendTo(div)
@@ -217,12 +226,14 @@ draw_convergence_menu = (stats, source, target)->
   return div
 
 draw_convergence_mini_bar = (stats)->
-  svg = d3.select(document.createElement("div")).append("svg")
-    # .attr("width", 300).attr("height", 20)
+  w = 500
+  svg = d3.select(document.createElement("div"))
+    .append("svg")
+    .attr("width", w) # .attr("height", 20)
 
   # max = stats["left"] + stats["right"]  - stats["intersection"]
   max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"]  + stats["intersection"]
-  scale = d3.scale.linear().domain([0, max]).range([0, 300])
+  scale = d3.scale.linear().domain([0, max]).range([0, w])
 
   ri = parseInt(scale(stats["intersection"]))
 
@@ -242,6 +253,14 @@ draw_convergence_mini_bar = (stats)->
     .attr("fill", "red")
     .attr("opacity", 0.25)
 
+  if rua > 14
+    svg.append("text")
+      .attr("x", x + rua*0.5)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .text(stats["left_absent"])
+
   x += rua
   svg.append("rect")
     .attr("width", r1)
@@ -251,6 +270,14 @@ draw_convergence_mini_bar = (stats)->
     .attr("stroke", "none")
     .attr("fill", "red")
     .attr("opacity", 0.4)
+
+  if r1 > 14
+    svg.append("text")
+      .attr("x", x + r1*0.5)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .text(stats["left_absent"])
 
   x += r1
   svg.append("rect")
@@ -262,6 +289,14 @@ draw_convergence_mini_bar = (stats)->
     .attr("fill", "red")
     .attr("opacity", 0.7)
 
+  if ri > 14
+    svg.append("text")
+      .attr("x", x + ri*0.5)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .text(stats["intersection"])
+
   x += ri
   svg.append("rect")
     .attr("width", r2)
@@ -272,6 +307,14 @@ draw_convergence_mini_bar = (stats)->
     .attr("fill", "red")
     .attr("opacity", 0.4)
 
+  if r2 > 14
+    svg.append("text")
+      .attr("x", x + r2*0.5)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .text(stats["right_absent"])
+
   x += r2
   svg.append("rect")
     .attr("width", rub)
@@ -281,6 +324,14 @@ draw_convergence_mini_bar = (stats)->
     .attr("stroke", "none")
     .attr("fill", "red")
     .attr("opacity", 0.25)
+
+  if rub > 14
+    svg.append("text")
+      .attr("x", x + rub*0.5)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".35em")
+      .text(stats["right_untranslated"])
 
   return svg
 
