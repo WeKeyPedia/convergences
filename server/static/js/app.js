@@ -47,7 +47,7 @@ load_convergences = function(lang, page) {
       panel = $(document.createElement('div')).addClass("page").data("target_lang", lang).on("click", function() {
         return load_links(source_lang, source_page, $(this).data("target_lang"));
       });
-      h = $(document.createElement('div')).addClass("title").append($(document.createElement('span')).html(page)).appendTo(panel);
+      h = $(document.createElement('div')).addClass("title page").append($(document.createElement('span')).html(page)).appendTo(panel);
       lg = $(document.createElement('span')).addClass("lang").html(lang).appendTo(h);
       convergence = compute_convergence(data["stats"][lang]);
       c_stat = $(document.createElement('div')).addClass("convergence indicator").html(convergence.toFixed(3)).appendTo(panel);
@@ -65,8 +65,8 @@ load_links = function(source, page, target) {
     target_page = data["pages"][target];
     source_href = "http://" + source + ".wikipedia.org/wiki/" + page;
     target_href = "http://" + target + ".wikipedia.org/wiki/" + target_page;
-    source_a = "<a href=" + source_href + " class=\"page\">" + page + " <span class=\"lang\">" + source + "</span></a>";
-    target_a = "<a href=" + target_href + " class=\"page\">" + target_page + " <span class=\"lang\">" + target + "</span></a>";
+    source_a = "<a href=" + source_href + " class=\"page\">" + page + "<span class=\"lang\">" + source + "</span></a>";
+    target_a = "<a href=" + target_href + " class=\"page\">" + target_page + "<span class=\"lang\">" + target + "</span></a>";
     source_links = data["translations"][source];
     target_links = data["translations"][target];
     source_untranslated = data["untranslated"][source];

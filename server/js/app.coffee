@@ -60,7 +60,7 @@ load_convergences = (lang, page)->
           load_links(source_lang, source_page, $(this).data("target_lang"))
 
       h = $(document.createElement('div'))
-        .addClass("title")
+        .addClass("title page")
         .append($(document.createElement('span'))
         .html(page))
         .appendTo(panel)
@@ -98,8 +98,8 @@ load_links = (source, page, target)->
     source_href = "http://#{source}.wikipedia.org/wiki/#{page}"
     target_href = "http://#{target}.wikipedia.org/wiki/#{target_page}"
 
-    source_a = "<a href=#{source_href} class=\"page\">#{page} <span class=\"lang\">#{source}</span></a>"
-    target_a = "<a href=#{target_href} class=\"page\">#{target_page} <span class=\"lang\">#{target}</span></a>"
+    source_a = "<a href=#{source_href} class=\"page\">#{page}<span class=\"lang\">#{source}</span></a>"
+    target_a = "<a href=#{target_href} class=\"page\">#{target_page}<span class=\"lang\">#{target}</span></a>"
 
     source_links = data["translations"][source]
     target_links = data["translations"][target]

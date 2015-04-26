@@ -34,7 +34,7 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
   margin-right : 10px;
 }
 
-#list-lang .page  {
+#list-lang > div >div.page  {
   margin-bottom: 10px;
   position: relative;
 }
