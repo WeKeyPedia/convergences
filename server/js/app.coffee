@@ -22,6 +22,9 @@ load_pages = (data)->
 
     $("#list-pages").append(ul)
 
+compute_convergence = (stats)->
+  return stats["intersection"]/((stats["left"] + stats["right"]) * 0.5)
+
 load_convergences = (lang, page)->
   $.get "/api/#{lang}/#{page}", (data)->
     div = $(document.createElement('div'))
@@ -30,8 +33,7 @@ load_convergences = (lang, page)->
       if value == null
         delete data["stats"][key]
 
-    sorted = _(_.pairs(data["stats"])).sortBy (a)->
-      -((a[1]["intersection"]/a[1]["left"]) + (a[1]["intersection"]/a[1]["left"])) * 0.5
+    sorted = _(_.pairs(data["stats"])).sortBy (a)-> -compute_convergence(a[1])
 
     source_lang = lang
     source_page = page
@@ -59,8 +61,7 @@ load_convergences = (lang, page)->
         .html(lang)
         .appendTo(h)
 
-      stats = data["stats"][lang]
-      convergence = ((stats["intersection"]/stats["left"]) + (stats["intersection"]/stats["left"])) * 0.5
+      convergence = compute_convergence(data["stats"][lang])
 
       c_stat = $(document.createElement('div'))
         .addClass("convergence indicator")

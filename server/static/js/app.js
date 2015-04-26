@@ -1,4 +1,4 @@
-var draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, load_convergences, load_links, load_pages;
+var compute_convergence, draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, load_convergences, load_links, load_pages;
 
 load_pages = function(data) {
   return _(data).each(function(pages, lang) {
@@ -19,6 +19,10 @@ load_pages = function(data) {
   });
 };
 
+compute_convergence = function(stats) {
+  return stats["intersection"] / ((stats["left"] + stats["right"]) * 0.5);
+};
+
 load_convergences = function(lang, page) {
   return $.get("/api/" + lang + "/" + page, function(data) {
     var div, sorted, source_lang, source_page;
@@ -29,13 +33,13 @@ load_convergences = function(lang, page) {
       }
     });
     sorted = _(_.pairs(data["stats"])).sortBy(function(a) {
-      return -((a[1]["intersection"] / a[1]["left"]) + (a[1]["intersection"] / a[1]["left"])) * 0.5;
+      return -compute_convergence(a[1]);
     });
     source_lang = lang;
     source_page = page;
     load_links(lang, page, sorted[0][0]);
     _(sorted).each(function(array) {
-      var c_stat, convergence, h, lg, panel, stats, svg;
+      var c_stat, convergence, h, lg, panel, svg;
       lang = array[0];
       page = data["langs"][lang];
       panel = $(document.createElement('div')).addClass("page").data("target_lang", lang).on("click", function() {
@@ -43,8 +47,7 @@ load_convergences = function(lang, page) {
       });
       h = $(document.createElement('div')).addClass("title").append($(document.createElement('span')).html(page)).appendTo(panel);
       lg = $(document.createElement('span')).addClass("lang").html(lang).appendTo(h);
-      stats = data["stats"][lang];
-      convergence = ((stats["intersection"] / stats["left"]) + (stats["intersection"] / stats["left"])) * 0.5;
+      convergence = compute_convergence(data["stats"][lang]);
       c_stat = $(document.createElement('div')).addClass("convergence indicator").html(convergence.toFixed(3)).appendTo(panel);
       svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_mini_bar(data["stats"][lang])[0]).appendTo(panel);
       return div.append(panel);
