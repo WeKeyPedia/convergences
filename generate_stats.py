@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division
+import sys
 from math import ceil
 
 from collections import defaultdict
@@ -12,6 +13,10 @@ from multiprocessing import Pool as ThreadPool
 
 
 def stats(page, source, target):
+
+  if target in ignore_langs:
+    return
+
   with codecs.open("data/{1}.{0}/{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
     left_links = json.load(f)
 
@@ -39,14 +44,28 @@ def stats(page, source, target):
   return stats
 
 def compute_stats(source):
-  langlinks = json.load(codecs.open("data/en.{0}.json".format(source), "r", "utf-8-sig"))
+  lang = "en"
 
-  result = { l: stats(source, "en", l) for l in langlinks.keys() }
+  if "#" in source:
+    lang = source.split("#")[1]
+    source = source.split("#")[0]
 
-  with codecs.open("data/{1}.{0}.stats.json".format(source, "en"), "w", "utf-8-sig") as f:
+  langlinks = json.load(codecs.open("data/{1}.{0}.json".format(source, lang), "r", "utf-8-sig"))
+
+  result = { l: stats(source, lang, l) for l in langlinks.keys() }
+
+  with codecs.open("data/{1}.{0}.stats.json".format(source, lang), "w", "utf-8-sig") as f:
     json.dump(result, f, ensure_ascii=False, indent=2, separators=(',', ': '))
 
+ignore_langs = [ "th" ]
+ignore_langs = []
+
 if __name__ == "__main__":
-  sources = ["Love", "Revolution", "Wisdom", "Ethics", "Morality", "Surveillance"]
+  if len(sys.argv) < 2:
+    sources = ["Love", "Revolution", "Wisdom", "Ethics", "Morality", "Surveillance"]
+    sources = [ "Russia", "Crimea", "Ukraine"]
+  else:
+    sources = sys.argv[1:]
+    print sources
 
   map(compute_stats, sources)
