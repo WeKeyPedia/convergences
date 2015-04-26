@@ -23,6 +23,11 @@ load_convergences = function(lang, page) {
   return $.get("/api/" + lang + "/" + page, function(data) {
     var div, sorted, source_lang, source_page;
     div = $(document.createElement('div'));
+    _(data["stats"]).each(function(value, key) {
+      if (value === null) {
+        return delete data["stats"][key];
+      }
+    });
     sorted = _(_.pairs(data["stats"])).sortBy(function(a) {
       return -((a[1]["intersection"] / a[1]["left"]) + (a[1]["intersection"] / a[1]["left"])) * 0.5;
     });

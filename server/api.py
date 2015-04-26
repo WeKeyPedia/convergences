@@ -34,8 +34,8 @@ def get_list():
 def get_page(lang, page):
   response = ""
 
-  langs = json.load(codecs.open("{0}/{1}.{2}.json".format(data_dir, lang, page), "r", "utf-8-sig"))
-  stats = json.load(codecs.open("{0}/{1}.{2}.stats.json".format(data_dir, lang, page), "r", "utf-8-sig"))
+  langs = json.load(codecs.open(u"{0}/{1}.{2}.json".format(data_dir, lang, page), "r", "utf-8-sig"))
+  stats = json.load(codecs.open(u"{0}/{1}.{2}.stats.json".format(data_dir, lang, page), "r", "utf-8-sig"))
 
   response = {
     "langs": langs,
@@ -66,15 +66,15 @@ def get_page_correspondances(lang, page, target):
     }
   }
 
-  langs = json.load(codecs.open("{0}/{1}.{2}.json".format(data_dir, lang, page), "r", "utf-8-sig"))
+  langs = json.load(codecs.open(u"{0}/{1}.{2}.json".format(data_dir, lang, page), "r", "utf-8-sig"))
   response["pages"][lang] = page
   response["pages"][target] = langs[target]
 
-  source_links = codecs.open("{0}/{1}.{2}/{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
-  target_links = codecs.open("{0}/{1}.{2}/{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  source_links = codecs.open(u"{0}/{1}.{2}/{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  target_links = codecs.open(u"{0}/{1}.{2}/{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
 
-  target_lang = codecs.open("{0}/{1}.{2}/{3}.{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
-  lang_target = codecs.open("{0}/{1}.{2}/{1}.{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  target_lang = codecs.open(u"{0}/{1}.{2}/{3}.{1}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
+  lang_target = codecs.open(u"{0}/{1}.{2}/{1}.{3}.json".format(data_dir, lang, page, target), "r", "utf-8-sig")
 
   response["links"][lang] = json.load(source_links)
   response["links"][target] = json.load(target_links)

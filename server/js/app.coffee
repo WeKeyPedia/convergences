@@ -26,6 +26,10 @@ load_convergences = (lang, page)->
   $.get "/api/#{lang}/#{page}", (data)->
     div = $(document.createElement('div'))
 
+    _(data["stats"]).each (value, key)->
+      if value == null
+        delete data["stats"][key]
+
     sorted = _(_.pairs(data["stats"])).sortBy (a)->
       -((a[1]["intersection"]/a[1]["left"]) + (a[1]["intersection"]/a[1]["left"])) * 0.5
 
@@ -88,6 +92,7 @@ load_links = (source, page, target)->
       # console.log source
       svg = $(document.createElement('div'))
         .addClass("convergence-viz")
+#        .append(draw_convergence(data["stats"][target] )[0])
         .append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
         .prependTo(div)
 
