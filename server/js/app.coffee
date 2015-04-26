@@ -1,4 +1,6 @@
 load_pages = (data)->
+  $("#list-pages").append("<h2>Pages</h2>")
+
   _(data).each (pages, lang)->
     ul = $(document.createElement('ul'))
       .addClass("pages")

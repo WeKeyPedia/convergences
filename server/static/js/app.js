@@ -1,6 +1,7 @@
 var compute_convergence, draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, draw_convergences_chart, load_convergences, load_links, load_pages;
 
 load_pages = function(data) {
+  $("#list-pages").append("<h2>Pages</h2>");
   return _(data).each(function(pages, lang) {
     var header, ul;
     ul = $(document.createElement('ul')).addClass("pages");

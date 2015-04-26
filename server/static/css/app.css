@@ -1,4 +1,4 @@
-body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
+body > div { padding : 15px 20px; overflow: hidden; width: 1280px; }
 
 #list-pages { float: left; width : 200px; margin-right : 10px; }
 
@@ -13,6 +13,14 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 h2 {
   font-size: 18px;
   border-bottom: 1px solid #d6d6d6;
+}
+
+#list-pages h2 {
+  padding-bottom : 3px;
+}
+
+#list-pages ul {
+  padding-left : 0px;
 }
 
 #list-pages h4 {
