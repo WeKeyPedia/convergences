@@ -2,6 +2,14 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 
 #list-pages { float: left; width : 200px; margin-right : 10px; }
 
+.page >.lang {
+  font-size: 0.8em;
+  padding-left: 2px;
+  color: #a2a2a2;
+  margin: 0;
+  vertical-align: sub;
+}
+
 
 #list-pages .lang {
   color: #a2a2a2;
@@ -50,16 +58,8 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 }
 
 
-#list-lang .title .lang {
-  font-size: 0.8em;
-  padding-left: 2px;
-  color: #a2a2a2;
-  margin: 0;
-  vertical-align: sub;
-}
-
 #list-lang .convergence-viz { width: 500px; }
-#list-lang svg { height: 20px; }
+#list-lang .page svg { height: 20px; }
 
 #list-lang svg text {
   opacity: 0.60;
@@ -77,9 +77,9 @@ body > div { padding-top : 30px; overflow: hidden; width: 1280px; }
 #list-links .list a { margin-right: 1em; }
 #list-links h3 { border-bottom : 1px solid #d6d6d6; padding-bottom : 2px; }
 #list-links h3 a span {
-  font-size: 0.8em;
-  /* margin-right: 1em; */
-  color: #a2a2a2;
-  margin: 0;
-  vertical-align: sub;
+/*   font-size: 0.8em;
+margin-right: 1em;
+color: #a2a2a2;
+margin: 0;
+vertical-align: sub; */
 }

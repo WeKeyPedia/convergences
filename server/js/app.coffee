@@ -23,6 +23,7 @@ load_pages = (data)->
     $("#list-pages").append(ul)
 
 compute_convergence = (stats)->
+#  return stats["intersection"]/(stats["left"] + 0.0001) + stats["intersection"]/(stats["right"] + 0.0001)
   return stats["intersection"]/((stats["left"] + stats["right"]) * 0.5)
 
 load_convergences = (lang, page)->
@@ -38,7 +39,15 @@ load_convergences = (lang, page)->
     source_lang = lang
     source_page = page
 
+    h2 = $(document.createElement('h2'))
+      .addClass("title")
+      .html("Translations of <a href=\"http://#{source_lang}.wikipedia.org/wiki/#{source_page}\" class=\"page\">#{source_page}<span class=\"lang\">#{source_lang}</span></a>")
+      .appendTo(div)
+
     load_links(lang, page, sorted[0][0])
+
+    $(draw_convergences_chart(sorted)[0])
+      .appendTo(div)
 
     _(sorted).each (array)->
       lang = array[0]
@@ -89,8 +98,8 @@ load_links = (source, page, target)->
     source_href = "http://#{source}.wikipedia.org/wiki/#{page}"
     target_href = "http://#{target}.wikipedia.org/wiki/#{target_page}"
 
-    source_a = "<a href=#{source_href}>#{page} <span>#{source}</span></a>"
-    target_a = "<a href=#{target_href}>#{target_page} <span>#{target}</span></a>"
+    source_a = "<a href=#{source_href} class=\"page\">#{page} <span class=\"lang\">#{source}</span></a>"
+    target_a = "<a href=#{target_href} class=\"page\">#{target_page} <span class=\"lang\">#{target}</span></a>"
 
     source_links = data["translations"][source]
     target_links = data["translations"][target]
@@ -98,13 +107,17 @@ load_links = (source, page, target)->
     source_untranslated = data["untranslated"][source]
     target_untranslated = data["untranslated"][target]
 
+    h2 = $(document.createElement('h2'))
+      .addClass("title")
+      .html("Links of #{source_a} and #{target_a}")
+      .appendTo(div)
+
+    svg = $(document.createElement('div'))
+      .addClass("convergence-viz")
+      .appendTo(div)
+
     $.get "/api/#{source}/#{page}", (data)=>
-      # console.log source
-      svg = $(document.createElement('div'))
-        .addClass("convergence-viz")
-#        .append(draw_convergence(data["stats"][target] )[0])
-        .append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
-        .prependTo(div)
+      svg.append(draw_convergence_menu(data["stats"][target], source_a, target_a)[0])
 
     list = (items, direction)->
       d = $(document.createElement('div')).addClass("list")
@@ -175,10 +188,47 @@ load_links = (source, page, target)->
       .html("Links from #{target_a} which have no translation on #{source}.wikipedia.org")
       .appendTo(right_untranslated)
 
-    list(target_untranslated, source)
+    list(target_untranslated, target)
       .appendTo(right_untranslated)
 
     $("#list-links").html(div)
+
+draw_convergences_chart = (langs)->
+  w = 500
+  h = 100
+
+  scale_x = d3.scale.linear().domain([0, langs.length ]).range([0, w])
+  scale_y = d3.scale.linear().domain([0, 1]).range([h-1, 0])
+
+  svg = d3.select(document.createElement("div"))
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h)
+
+  svg.append("line")
+    .attr("x1", 0).attr("y1", h/2)
+    .attr("x2", w).attr("y2", h/2)
+    .attr("stroke", "#e4e4e4")
+    .attr("stroke-width", "1")
+    .attr("stroke-dasharray", "5,5")
+
+  data = _(langs).map (l, i)->
+    { x: scale_x(i), y: scale_y(compute_convergence(l[1])) }
+
+  # console.log data
+
+  l_convergence = d3.svg.line()
+    .x((d)-> d.x)
+    .y((d)-> d.y)
+    .interpolate("linear")
+
+  svg.append("path")
+    .attr("d", l_convergence(data))
+    .attr("stroke", "#a5a2a2")
+    .attr("stroke-width", "1")
+    .attr("fill", "none")
+
+  return svg
 
 draw_convergence_menu = (stats, source, target)->
   div = d3.select(document.createElement("div"))
