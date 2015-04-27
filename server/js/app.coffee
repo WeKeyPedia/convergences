@@ -76,7 +76,6 @@ load_convergences = (lang, page)->
     $(legend)
        .appendTo(div)
 
-
     _(sorted).each (array)->
       lang = array[0]
       page = data["langs"][lang]
@@ -102,7 +101,7 @@ load_convergences = (lang, page)->
 
       c_stat = $(document.createElement('div'))
         .addClass("convergence indicator")
-        .html("A=#{source_lang} B=#{lang} convergence=" + convergence.toFixed(3))
+        .html("A=#{lang} B=#{source_lang} convergence=" + convergence.toFixed(3))
         .appendTo(panel)
 
       svg = $(document.createElement('div'))
@@ -333,11 +332,11 @@ draw_convergence_mini_bar = (stats)->
 
   ri = parseInt(scale(stats["intersection"]))
 
-  r1 = parseInt(scale(stats["left_absent"]))
-  r2 = parseInt(scale(stats["right_absent"]))
+  r2 = parseInt(scale(stats["left_absent"]))
+  r1 = parseInt(scale(stats["right_absent"]))
 
-  rua = parseInt(scale(stats["left_untranslated"]))
-  rub = parseInt(scale(stats["right_untranslated"]))
+  rub = parseInt(scale(stats["left_untranslated"]))
+  rua = parseInt(scale(stats["right_untranslated"]))
 
   x = 0
   svg.append("rect")
@@ -355,7 +354,7 @@ draw_convergence_mini_bar = (stats)->
       .attr("y", 10)
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
-      .text(stats["left_untranslated"])
+      .text(stats["right_untranslated"])
 
   x += rua
   svg.append("rect")
@@ -373,7 +372,7 @@ draw_convergence_mini_bar = (stats)->
       .attr("y", 10)
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
-      .text(stats["left_absent"])
+      .text(stats["right_absent"])
 
   x += r1
   svg.append("rect")
@@ -409,7 +408,7 @@ draw_convergence_mini_bar = (stats)->
       .attr("y", 10)
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
-      .text(stats["right_absent"])
+      .text(stats["left_absent"])
 
   x += r2
   svg.append("rect")
@@ -427,7 +426,7 @@ draw_convergence_mini_bar = (stats)->
       .attr("y", 10)
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
-      .text(stats["right_untranslated"])
+      .text(stats["left_untranslated"])
 
   return svg
 

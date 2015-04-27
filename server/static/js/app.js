@@ -60,7 +60,7 @@ load_convergences = function(lang, page) {
       h = $(document.createElement('div')).addClass("title page").append($(document.createElement('span')).html(page)).appendTo(panel);
       lg = $(document.createElement('span')).addClass("lang").html(lang).appendTo(h);
       convergence = compute_convergence(data["stats"][lang]);
-      c_stat = $(document.createElement('div')).addClass("convergence indicator").html(("A=" + source_lang + " B=" + lang + " convergence=") + convergence.toFixed(3)).appendTo(panel);
+      c_stat = $(document.createElement('div')).addClass("convergence indicator").html(("A=" + lang + " B=" + source_lang + " convergence=") + convergence.toFixed(3)).appendTo(panel);
       svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_mini_bar(data["stats"][lang])[0]).appendTo(panel);
       return div.append(panel);
     });
@@ -164,19 +164,19 @@ draw_convergence_mini_bar = function(stats) {
   max = stats["left_untranslated"] + stats["right_untranslated"] + stats["left_absent"] + stats["right_absent"] + stats["intersection"];
   scale = d3.scale.linear().domain([0, max]).range([0, w]);
   ri = parseInt(scale(stats["intersection"]));
-  r1 = parseInt(scale(stats["left_absent"]));
-  r2 = parseInt(scale(stats["right_absent"]));
-  rua = parseInt(scale(stats["left_untranslated"]));
-  rub = parseInt(scale(stats["right_untranslated"]));
+  r2 = parseInt(scale(stats["left_absent"]));
+  r1 = parseInt(scale(stats["right_absent"]));
+  rub = parseInt(scale(stats["left_untranslated"]));
+  rua = parseInt(scale(stats["right_untranslated"]));
   x = 0;
   svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.35);
   if (rua > 14) {
-    svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_untranslated"]);
+    svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_untranslated"]);
   }
   x += rua;
   svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.6);
   if (r1 > 14) {
-    svg.append("text").attr("x", x + r1 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
+    svg.append("text").attr("x", x + r1 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_absent"]);
   }
   x += r1;
   svg.append("rect").attr("width", ri).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#32ace9").attr("opacity", 0.9);
@@ -186,12 +186,12 @@ draw_convergence_mini_bar = function(stats) {
   x += ri;
   svg.append("rect").attr("width", r2).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#09c784").attr("opacity", 0.6);
   if (r2 > 14) {
-    svg.append("text").attr("x", x + r2 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_absent"]);
+    svg.append("text").attr("x", x + r2 * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
   }
   x += r2;
   svg.append("rect").attr("width", rub).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#09c784").attr("opacity", 0.35);
   if (rub > 14) {
-    svg.append("text").attr("x", x + rub * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["right_untranslated"]);
+    svg.append("text").attr("x", x + rub * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_untranslated"]);
   }
   return svg;
 };
