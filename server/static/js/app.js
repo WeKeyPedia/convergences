@@ -60,7 +60,7 @@ load_convergences = function(lang, page) {
       h = $(document.createElement('div')).addClass("title page").append($(document.createElement('span')).html(page)).appendTo(panel);
       lg = $(document.createElement('span')).addClass("lang").html(lang).appendTo(h);
       convergence = compute_convergence(data["stats"][lang]);
-      c_stat = $(document.createElement('div')).addClass("convergence indicator").html(convergence.toFixed(3)).appendTo(panel);
+      c_stat = $(document.createElement('div')).addClass("convergence indicator").html(("A=" + source_lang + " B=" + lang + " convergence=") + convergence.toFixed(3)).appendTo(panel);
       svg = $(document.createElement('div')).addClass("convergence-viz").append(draw_convergence_mini_bar(data["stats"][lang])[0]).appendTo(panel);
       return div.append(panel);
     });

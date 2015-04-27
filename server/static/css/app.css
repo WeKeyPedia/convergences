@@ -62,6 +62,8 @@ h2 {
   text-align: left;
 }
 #list-lang .indicator {
+  padding-top: 4px;
+  font-size: 12px;
   text-align: right;
   position: absolute;
   top: 0;

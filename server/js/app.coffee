@@ -102,7 +102,7 @@ load_convergences = (lang, page)->
 
       c_stat = $(document.createElement('div'))
         .addClass("convergence indicator")
-        .html(convergence.toFixed(3))
+        .html("A=#{source_lang} B=#{lang} convergence=" + convergence.toFixed(3))
         .appendTo(panel)
 
       svg = $(document.createElement('div'))
