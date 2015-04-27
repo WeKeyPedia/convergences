@@ -1,4 +1,4 @@
-var compute_convergence, draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, draw_convergences_chart, load_convergences, load_links, load_pages;
+var compute_convergence, draw_convergence, draw_convergence_menu, draw_convergence_mini_bar, draw_convergences_chart, load_convergences, load_links, load_pages, routes;
 
 load_pages = function(data) {
   $("#list-pages").append("<h2>Pages</h2>");
@@ -25,6 +25,9 @@ compute_convergence = function(stats) {
 };
 
 load_convergences = function(lang, page) {
+  history.pushState({
+    id: "/page/" + lang + "/" + page
+  }, '', "/page/" + lang + "/" + page);
   return $.get("/api/" + lang + "/" + page, function(data) {
     var div, h2, sorted, source_lang, source_page;
     div = $(document.createElement('div'));
@@ -59,6 +62,9 @@ load_convergences = function(lang, page) {
 };
 
 load_links = function(source, page, target) {
+  history.pushState({
+    id: "/page/" + source + "/" + page + "/" + target
+  }, '', "/page/" + source + "/" + page + "/" + target);
   return $.get("/api/" + source + "/" + page + "/" + target, function(data) {
     var div, h2, i, intersection, intersection_h, la, left_absent, left_absent_h, left_untranslated, left_untranslated_h, list, ra, right_absent, right_absent_h, right_untranslated, right_untranslated_h, source_a, source_href, source_links, source_untranslated, target_a, target_href, target_links, target_page, target_untranslated;
     div = $(document.createElement('div'));
@@ -205,7 +211,22 @@ draw_convergence = function(stats) {
   return svg;
 };
 
+routes = {
+  "/page/:source/:page": load_convergences,
+  "/page/:source/:page/:target": function(source, page, target) {
+    load_convergences(source, page);
+    return load_links(source, page, target);
+  },
+  "/": function() {
+    return window.location = "/page/en/Albert Einstein";
+  }
+};
+
 $(document).ready(function() {
+  var router;
   $.get("/api/list", load_pages);
-  return load_convergences("en", "Love");
+  router = Router(routes).configure({
+    html5history: true
+  });
+  return router.init();
 });

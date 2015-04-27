@@ -86,8 +86,10 @@ def get_page_correspondances(lang, page, target):
   return jsonify(response)
 
 # WEB
+@app.route("/page/<source>/<page>")
+@app.route("/page/<source>/<page>/<target>")
 @app.route("/")
-def site():
+def site(**args):
   return render_template("app.html")
 
 if __name__ == "__main__":

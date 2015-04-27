@@ -19,6 +19,7 @@ load_pages = (data)->
 
       li.on "click", ()->
         load_convergences(lang,page)
+        # window.location = "/page/#{lang}/#{page}"
 
       ul.append(li)
 
@@ -29,6 +30,8 @@ compute_convergence = (stats)->
   return stats["intersection"]/((stats["left"] + stats["right"]) * 0.5)
 
 load_convergences = (lang, page)->
+  history.pushState({id: "/page/#{lang}/#{page}"}, '', "/page/#{lang}/#{page}");
+
   $.get "/api/#{lang}/#{page}", (data)->
     div = $(document.createElement('div'))
 
@@ -92,6 +95,8 @@ load_convergences = (lang, page)->
     $("#list-lang").html(div)
 
 load_links = (source, page, target)->
+  history.pushState({id: "/page/#{source}/#{page}/#{target}"}, '', "/page/#{source}/#{page}/#{target}");
+
   $.get "/api/#{source}/#{page}/#{target}", (data)->
     div = $(document.createElement('div'))
 
@@ -471,7 +476,18 @@ draw_convergence = (stats)->
 
   return svg
 
+routes =
+  "/page/:source/:page": load_convergences
+  "/page/:source/:page/:target": (source, page, target)->
+    load_convergences(source, page)
+    load_links(source, page, target)
+  "/": ()->
+    window.location = "/page/en/Albert Einstein"
+
 $(document).ready ()->
   $.get("/api/list",load_pages)
-  load_convergences("en", "Love")
+  # load_convergences("en", "Love")
   # load_links("en", "Love", "fr")
+
+  router = Router(routes).configure({ html5history: true })
+  router.init()
