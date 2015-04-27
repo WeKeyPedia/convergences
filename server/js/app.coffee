@@ -332,7 +332,7 @@ draw_convergence_mini_bar = (stats)->
       .attr("y", 10)
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
-      .text(stats["left_absent"])
+      .text(stats["left_untranslated"])
 
   x += rua
   svg.append("rect")

@@ -164,7 +164,7 @@ draw_convergence_mini_bar = function(stats) {
   x = 0;
   svg.append("rect").attr("width", rua).attr("height", 20).attr("x", 0).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.35);
   if (rua > 14) {
-    svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_absent"]);
+    svg.append("text").attr("x", x + rua * 0.5).attr("y", 10).attr("text-anchor", "middle").attr("dy", ".35em").text(stats["left_untranslated"]);
   }
   x += rua;
   svg.append("rect").attr("width", r1).attr("height", 20).attr("x", x).attr("y", 0).attr("stroke", "none").attr("fill", "#cf75ff").attr("opacity", 0.6);
