@@ -509,7 +509,6 @@ $(document).ready ()->
   $("#about h2 span").on "click", ()->
     $("#about").slideToggle("slow")
 
-  console.log window.location.hash.slice()
 
   router = Router(routes).configure({ html5history: true })
   router.init()
@@ -522,4 +521,5 @@ routes =
   "/about": ()->
     $("#about").show()
   "/": ()->
-    window.location = "/page/en/Albert Einstein"
+    # window.location = "/page/en/Albert Einstein"
+    window.location = "/about"

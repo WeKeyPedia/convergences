@@ -226,7 +226,6 @@ $(document).ready(function() {
   $("#about h2 span").on("click", function() {
     return $("#about").slideToggle("slow");
   });
-  console.log(window.location.hash.slice());
   router = Router(routes).configure({
     html5history: true
   });
@@ -245,6 +244,6 @@ routes = {
     return $("#about").show();
   },
   "/": function() {
-    return window.location = "/page/en/Albert Einstein";
+    return window.location = "/about";
   }
 };
