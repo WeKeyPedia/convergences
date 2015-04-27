@@ -12,6 +12,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 
     <script src="/static/js/app.js"></script>
   </header>
@@ -19,17 +21,151 @@
 
   <div>
 
-    <div id="list-pages">
+    <div id="list-pages"></div>
+    <div id="list-lang"></div>
+    <div id="list-links"></div>
+
+  </div>
+
+  <div id="about">
+    <h2>About <span class="pull-right small glyphicon glyphicon-arrow-up">hide</span></h2>
+
+    <div>
+
+      <h3>Methodology</h3>
+
+      <p>The corpus is build by using a simple information retrieval method based
+      upon the <a href="http://www.mediawiki.org/wiki/API:Main_page"></a>Wikipedia
+      API and <a href="https://github.com/wekeypedia/toolkit-python">our own
+      python library</a>.</p>
+
+      <p>For a given page <i>P</i> in language <i>A</i>, we retrieve all links
+      from that page (<i>L<sub>A</sub></i>) following the redirects. We also
+      retrieve all <code>langlinks</code> that give us the available
+      translations for <i>P<sub>A</sub></i>: <i>LL<sub>P<sub>A</sub></sub></i>.
+      Then for each page in language <i>B &isin; <i>LL<sub>P<sub>A</sub></sub></i>
+      </i> we retrieve <i>L<sub>B</sub></i>, the list of links included in that
+      page. We then check translation in <i>A</i> for these links. A final
+      cleaning is done by retrieving the final redirected name for each link of
+      <i>L<sub>BA</sub></i> in <i>A</i>.</p>
+
+      <p>The same is done for links from <i>L<sub>A</sub></i> to get the set of
+      translated links from <i>A</i> to <i>B</i>: <i>L<sub>AB</sub></i>.</p>
+
+      <svg width="500" height="120">
+        <circle cx="100" cy="60" fill="#cf75ff" opacity="0.6" r="40"></circle>
+        <circle cx="100" cy="90" fill="#fff" opacity="1" r="10"></circle>
+        <circle cx="100" cy="90" fill="#cf75ff" opacity="0.3" r="10"></circle>
+
+        <line x1="140" y1="60" x2="220" y2="60" stroke="#e1e1e1"></line>
+        <path stroke="#e1e1e1" d="M 215 55 L 220 60 L 215 65" fill="none"></path>
+
+        <circle cx="250" cy="60" fill="#32ace9" opacity="0.9" r="30"></circle>
+
+        <line x1="280" y1="60" x2="360" y2="60" stroke="#e1e1e1"></line>
+        <path stroke="#e1e1e1" d="M 285 55 L 280 60 L 285 65" fill="none"></path>
+
+        <circle cx="400" cy="60" fill="#09c784" opacity="0.6" r="40"></circle>
+        <circle cx="400" cy="90" fill="#fff" opacity="1" r="10"></circle>
+        <circle cx="400" cy="90" fill="#09c784" opacity="0.3" r="10"></circle>
+
+        <text fill="#d6d6d6" text-anchor="middle" x="100" y="10">links of page(language <tspan style="font-style:italic;">A</tspan>)</text>
+        <text fill="white" text-anchor="middle" x="100" y="63">L<tspan style="font-style:italic; font-size: 0.8em;" dy="0.3em">A</tspan></text>
+
+        <text fill="white" text-anchor="middle" x="100" y="93" style="font-size:0.8em">Lu<tspan style="font-style:italic; font-size: 0.8em;" dy="0.3em">A</tspan></text>
+        <text fill="#d6d6d6" text-anchor="middle" x="100" y="110" style="font-size:0.8em">untranslated links</text>
+
+        <text fill="#d6d6d6" text-anchor="middle" x="400" y="10">links of page(language <tspan style="font-style:italic;">B</tspan>)</text>
+        <text fill="white" text-anchor="middle" x="400" y="63">L<tspan style="font-style:italic; font-size: 0.8em;" dy="0.3em">B</tspan></text>
+
+        <text fill="white" text-anchor="middle" x="400" y="93" style="font-size:0.8em">Lu<tspan style="font-style:italic; font-size: 0.8em;" dy="0.3em">B</tspan></text>
+        <text fill="#d6d6d6" text-anchor="middle" x="400" y="110" style="font-size:0.8em">untranslated links</text>
+
+        <text fill="#d6d6d6" text-anchor="middle" x="250" y="100">common links</text>
+        <text fill="white" text-anchor="middle" x="250" y="63">L<tspan style="font-style:italic; font-size: 0.8em;" dy="3px">A</tspan> <tspan dy="-3px" style="font-size: 1.5em;">&#8745;</tspan> L<tspan style="font-style:italic; font-size: 0.8em;" dy="0.3em">B</tspan></text>
+      </svg>
+
+      <p>3 kinds of links are then available for analysis:
+      <ul>
+        <li>
+        <svg width="20" height="20"><rect  width="20" height="20" fill="#32ace9" opacity="0.9"></rect></svg>
+
+        links that are on both version of a page and then should be
+        available for mutual understanding</li>
+        <li>
+        <svg width="20" height="20"><rect  width="20" height="20" fill="#cf75ff" opacity="0.6"></rect></svg>
+        and
+        <svg width="20" height="20"><rect  width="20" height="20" fill="#09c784" opacity="0.6"></rect></svg>
+
+        links that are on a version but not the other one but have
+        a translation. This mean that the concept have a meaning from one
+        language to another but does not contribute to the understanding of
+        the page in the initial language</li>
+        <li>
+        <svg width="20" height="20"><rect  width="20" height="20" fill="#cf75ff" opacity="0.3"></rect></svg>
+        and
+        <svg width="20" height="20"><rect  width="20" height="20" fill="#09c784" opacity="0.3"></rect></svg>
+
+
+        untranslated links from one language to another. These can be
+        due to
+        <a href="http://en.wikipedia.org/wiki/Untranslatability">untranslatability</a>
+        or just the lack of wikipedia entry. In both case it provides
+        information about the importance of the term in a given language.</li>
+      </ul>
+      </p>
+
+      <p>For each page, all translation versions are shown order by a
+      convergence metric computed as followed:
+
+      $$ convergence = \frac{L_{AA} \cap L_{BA}}{ \frac{L_A + L_B}{2} } $$
+
+      </p>
     </div>
 
-    <div id="convergences-synthesis">
-      <div id="list-lang"></div>
-    </div>
+    <div>
 
-    <div id="convergence-info">
-      <div id="list-links"></div>
-    </div>
+      <p class="lead"><i>Convergences</i> is a web visualization of convergences
+        and divergences between the different languages of wikipedia as a proxy of
+        distances between cultures.</p>
 
+      <p>While cultures and languages do not have a clear causal relationship.
+      This kind of measurements can still help to understand the social representations
+      of the wikipedia communities and their sub-cultures. It can also provide some
+      interesting insights about the power structure between languages. For
+      example, the difference in number of links for a page in two languages tells
+      something about the importance of the concepts involved
+      in the page within the language/culture and the dominance as differential
+      power of a language over another one.</p>
+
+      <p><i>Convergences</i> is a side-project from
+        <a href="http://wekeypedia.net">wekeypedia</a> and the source code is fully
+        open to hack on <a href="https://github.com/WeKeyPedia/convergences/">github</a>.</p>
+
+
+      <h3>Scripts</h3>
+
+      <ul>
+        <li><a href="https://github.com/WeKeyPedia/convergences/blob/master/generate_dataset.py">python script to generate dataset</a>
+          <pre>$ python generate_dataset.py "Napoleon" "Napoléon Ier#fr" "Napoleon Bonaparte#de"</pre>
+        </li>
+        <li><a href="https://github.com/WeKeyPedia/convergences/blob/master/generate_stats.py">python script to generate statistics</a>
+          <pre>$ python generate_stats.py "Napoleon" "Napoléon Ier#fr" "Napoleon Bonaparte#de"</pre>
+        </li>
+      </ul>
+
+      <h3>Contributor</h3>
+
+      <address>
+      <strong>tam kien duong</strong><br>
+      email: <a href="mailto:#">tamkien@cri-paris.org</a><br>
+      twitter: <a href="http://twitter.com/taniki">@taniki</a><br>
+      web: <a href="http://cri-paris.org">CRI</a> – <a href="http://wekeypedia.net">wekeypedia</a><br>
+      </address>
+
+      </div>
+
+    </div>
   </div>
 
   </body>

@@ -1,5 +1,13 @@
 load_pages = (data)->
-  $("#list-pages").append("<h2>Pages</h2>")
+  h2 = $("<h2>Pages</h2>")
+    .appendTo( $("#list-pages"))
+
+  span = $(document.createElement('span'))
+    .addClass("small pull-right")
+    .html("about")
+    .appendTo(h2)
+    .on "click", ()->
+        $("#about").slideToggle("slow")
 
   _(data).each (pages, lang)->
     ul = $(document.createElement('ul'))
@@ -8,6 +16,7 @@ load_pages = (data)->
     header = $(document.createElement('h4'))
       .addClass("lang")
       .html(lang)
+
 
     ul.append(header)
 
@@ -19,6 +28,7 @@ load_pages = (data)->
 
       li.on "click", ()->
         load_convergences(lang,page)
+        $("#about").slideUp("slow")
         # window.location = "/page/#{lang}/#{page}"
 
       ul.append(li)
@@ -476,18 +486,28 @@ draw_convergence = (stats)->
 
   return svg
 
-routes =
-  "/page/:source/:page": (source, page)-> load_convergences(source, decodeURIComponent(page))
-  "/page/:source/:page/:target": (source, page, target)->
-    load_convergences(source, decodeURIComponent(page))
-    load_links(source, decodeURIComponent(page), target)
-  "/": ()->
-    window.location = "/page/en/Albert Einstein"
-
 $(document).ready ()->
   $.get("/api/list",load_pages)
   # load_convergences("en", "Love")
   # load_links("en", "Love", "fr")
 
+  $("#about").detach().insertAfter($("#list-pages"))
+  $("#about").hide()
+
+  $("#about h2 span").on "click", ()->
+    $("#about").slideToggle("slow")
+
+  console.log window.location.hash.slice()
+
   router = Router(routes).configure({ html5history: true })
   router.init()
+
+routes =
+  "/page/:source/:page": (source, page)-> load_convergences(source, decodeURIComponent(page))
+  "/page/:source/:page/:target": (source, page, target)->
+    load_convergences(source, decodeURIComponent(page))
+    load_links(source, decodeURIComponent(page), target)
+  "/about": ()->
+    $("#about").show()
+  "/": ()->
+    window.location = "/page/en/Albert Einstein"

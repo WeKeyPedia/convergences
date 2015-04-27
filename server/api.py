@@ -88,6 +88,7 @@ def get_page_correspondances(lang, page, target):
 # WEB
 @app.route("/page/<source>/<page>")
 @app.route("/page/<source>/<page>/<target>")
+@app.route("/about")
 @app.route("/")
 def site(**args):
   return render_template("app.html")

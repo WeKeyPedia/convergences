@@ -1,67 +1,66 @@
-body > div { padding : 15px 20px; overflow: hidden; width: 1280px; }
-
-#list-pages { float: left; width : 200px; margin-right : 10px; }
-
-.page >.lang {
+body > div {
+  padding: 15px 20px;
+  overflow: hidden;
+  width: 1280px;
+}
+#list-pages {
+  float: left;
+  width: 200px;
+  height: 100%;
+  margin-right: 10px;
+}
+.page > .lang {
   font-size: 0.8em;
   padding-left: 2px;
   color: #a2a2a2;
   margin: 0;
   vertical-align: sub;
 }
-
+svg {
+  font-family: Tahoma;
+  font-size: 10px;
+}
 h2 {
   font-size: 18px;
   border-bottom: 1px solid #d6d6d6;
 }
-
 #list-pages h2 {
-  padding-bottom : 3px;
+  padding-bottom: 3px;
 }
-
 #list-pages ul {
-  padding-left : 0px;
+  padding-left: 0px;
 }
-
 #list-pages h4 {
   color: #a2a2a2;
   font-size: 10px;
   font-weight: normal;
-  border-bottom : 1px solid #d6d6d6;
-  margin-bottom : 5px;
+  border-bottom: 1px solid #d6d6d6;
+  margin-bottom: 5px;
 }
-
 #list-pages .page {
   list-style-type: none;
 }
-
 #list-pages .page:hover {
   cursor: pointer;
   background: #f0f0f0;
 }
-
-
 #list-lang {
   float: left;
   width: 500px;
-  margin-right : 10px;
+  margin-right: 10px;
 }
-
-#list-lang > div >div.page  {
+#list-lang > div > div.page {
   margin-bottom: 10px;
   position: relative;
 }
-
 #list-lang .page:hover {
   cursor: pointer;
   background-color: #f0f0f0;
 }
-
 #list-lang .title {
   padding-right: 10px;
   text-align: left;
 }
-
 #list-lang .indicator {
   text-align: right;
   position: absolute;
@@ -69,45 +68,99 @@ h2 {
   right: 5px;
   color: #d6d6d6;
 }
-
-
-#list-lang .convergence-viz { width: 500px; }
-#list-lang .page svg { height: 20px; }
-
+#list-lang .convergence-viz {
+  width: 500px;
+}
+#list-lang .page svg {
+  height: 20px;
+}
 #list-lang svg text {
   opacity: 0.80;
   fill: white;
-  font-size : 10px;
+  font-size: 10px;
   font-family: "Tahoma";
 }
-
 #list-links {
   float: left;
-  width: 400px;
+  width: 500px;
   /* border-right: 1px solid #d6d6d6; */
 }
-
-#list-links h3::before{
+#list-links h3::before {
   content: " ";
   vertical-align: bottom;
   margin-right: 5px;
   display: inline-block;
-  width:19px;
+  width: 19px;
   height: 19px;
 }
-
-#list-links .intersection h3::before{ background : rgba(50, 172, 233, 0.9); }
-#list-links .left_absent h3::before{ background : rgba(207, 117, 255, 0.6); }
-#list-links .left_untranslated h3::before{ background : rgba(207, 117, 255, 0.35); }
-#list-links .right_absent h3::before{ background : rgba(9, 199, 132, 0.6); }
-#list-links .right_untranslated h3::before{ background : rgba(9, 199, 132, 0.35); }
-
-#list-links .list a { margin-right: 1em; }
-#list-links h3 { border-bottom : 1px solid #d6d6d6; padding-bottom : 2px; }
+#list-links .intersection h3::before {
+  background: rgba(50, 172, 233, 0.9);
+}
+#list-links .left_absent h3::before {
+  background: rgba(207, 117, 255, 0.6);
+}
+#list-links .left_untranslated h3::before {
+  background: rgba(207, 117, 255, 0.35);
+}
+#list-links .right_absent h3::before {
+  background: rgba(9, 199, 132, 0.6);
+}
+#list-links .right_untranslated h3::before {
+  background: rgba(9, 199, 132, 0.35);
+}
+#list-links .list a {
+  margin-right: 1em;
+}
+#list-links h3 {
+  border-bottom: 1px solid #d6d6d6;
+  padding-bottom: 2px;
+}
 #list-links h3 a span {
-/*   font-size: 0.8em;
+  /*   font-size: 0.8em;
 margin-right: 1em;
 color: #a2a2a2;
 margin: 0;
 vertical-align: sub; */
+}
+h2 span {
+  padding-top: 6px;
+  display: inline-block;
+}
+h2 span:hover {
+  cursor: pointer;
+}
+#about {
+  float: left;
+  width: 1010px;
+}
+#about > div {
+  float: left;
+  width: 500px;
+}
+#about > div:last-child {
+  margin-left: 10px;
+}
+#about h2 {
+  padding-bottom: 3px;
+}
+#about h2 span:hover {
+  cursor: pointer;
+}
+#about h3 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+#about h4 {
+  font-size: 14px;
+}
+#about .lead {
+  font-size: 22px;
+}
+#about svg {
+  margin: 10px 0;
+}
+#about ul svg {
+  vertical-align: bottom;
+  margin: 0px 2px 0px 0px;
+  display: inline-block;
 }
