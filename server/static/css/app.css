@@ -129,6 +129,14 @@ h2 span {
 h2 span:hover {
   cursor: pointer;
 }
+.legend {
+  font-size: 10px;
+}
+.legend svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: bottom;
+}
 #about {
   float: left;
   width: 1010px;

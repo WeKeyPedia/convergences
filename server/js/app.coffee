@@ -63,6 +63,19 @@ load_convergences = (lang, page)->
 
     # $(draw_convergences_chart(sorted)[0])
     #   .appendTo(div)
+    legend = """
+    <div class="legend">
+    <p><svg width="20" height="20"><rect  width="20" height="20" fill="#cf75ff" opacity="0.3"></rect></svg> links in language A that have no translation in language B</p>
+    <p><svg width="20" height="20"><rect  width="20" height="20" fill="#cf75ff" opacity="0.6"></rect></svg> links of page in language A but absent from language B</p>
+    <p><svg width="20" height="20"><rect  width="20" height="20" fill="#32ace9" opacity="0.9"></rect></svg> common links between language A and language B</p>
+    <p><svg width="20" height="20"><rect  width="20" height="20" fill="#09c784" opacity="0.6"></rect></svg> links of page in language B but absent from language A</p>
+    <p><svg width="20" height="20"><rect  width="20" height="20" fill="#09c784" opacity="0.3"></rect></svg> links in language B that have no translation in language A</p>
+    </div>
+    """
+
+    $(legend)
+       .appendTo(div)
+
 
     _(sorted).each (array)->
       lang = array[0]
