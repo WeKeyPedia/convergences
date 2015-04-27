@@ -46,7 +46,7 @@ load_convergences = function(lang, page) {
     });
     source_lang = lang;
     source_page = page;
-    h2 = $(document.createElement('h2')).addClass("title").html("Translations of <a href=\"http://" + source_lang + ".wikipedia.org/wiki/" + source_page + "\" class=\"page\">" + source_page + "<span class=\"lang\">" + source_lang + "</span></a>").appendTo(div);
+    h2 = $(document.createElement('h2')).addClass("title").html("Convergences of translations of <a href=\"http://" + source_lang + ".wikipedia.org/wiki/" + source_page + "\" class=\"page\">" + source_page + "<span class=\"lang\">" + source_lang + "</span></a>").appendTo(div);
     load_links(lang, page, sorted[0][0]);
     legend = "<div class=\"legend\">\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#cf75ff\" opacity=\"0.3\"></rect></svg> links in language A that have no translation in language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#cf75ff\" opacity=\"0.6\"></rect></svg> links of page in language A but absent from language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#32ace9\" opacity=\"0.9\"></rect></svg> common links between language A and language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#09c784\" opacity=\"0.6\"></rect></svg> links of page in language B but absent from language A</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#09c784\" opacity=\"0.3\"></rect></svg> links in language B that have no translation in language A</p>\n</div>";
     $(legend).appendTo(div);

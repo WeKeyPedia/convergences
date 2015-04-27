@@ -56,7 +56,7 @@ load_convergences = (lang, page)->
 
     h2 = $(document.createElement('h2'))
       .addClass("title")
-      .html("Translations of <a href=\"http://#{source_lang}.wikipedia.org/wiki/#{source_page}\" class=\"page\">#{source_page}<span class=\"lang\">#{source_lang}</span></a>")
+      .html("Convergences of translations of <a href=\"http://#{source_lang}.wikipedia.org/wiki/#{source_page}\" class=\"page\">#{source_page}<span class=\"lang\">#{source_lang}</span></a>")
       .appendTo(div)
 
     load_links(lang, page, sorted[0][0])
