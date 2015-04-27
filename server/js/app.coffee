@@ -477,10 +477,10 @@ draw_convergence = (stats)->
   return svg
 
 routes =
-  "/page/:source/:page": load_convergences
+  "/page/:source/:page": (source, page)-> load_convergences(source, decodeURIComponent(page))
   "/page/:source/:page/:target": (source, page, target)->
-    load_convergences(source, page)
-    load_links(source, page, target)
+    load_convergences(source, decodeURIComponent(page))
+    load_links(source, decodeURIComponent(page), target)
   "/": ()->
     window.location = "/page/en/Albert Einstein"
 

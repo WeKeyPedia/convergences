@@ -212,10 +212,12 @@ draw_convergence = function(stats) {
 };
 
 routes = {
-  "/page/:source/:page": load_convergences,
+  "/page/:source/:page": function(source, page) {
+    return load_convergences(source, decodeURIComponent(page));
+  },
   "/page/:source/:page/:target": function(source, page, target) {
-    load_convergences(source, page);
-    return load_links(source, page, target);
+    load_convergences(source, decodeURIComponent(page));
+    return load_links(source, decodeURIComponent(page), target);
   },
   "/": function() {
     return window.location = "/page/en/Albert Einstein";
