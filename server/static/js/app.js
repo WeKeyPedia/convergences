@@ -29,7 +29,10 @@ compute_convergence = function(stats) {
   return stats["intersection"] / ((stats["left"] + stats["right"]) * 0.5);
 };
 
-load_convergences = function(lang, page) {
+load_convergences = function(lang, page, trigger_links) {
+  if (trigger_links == null) {
+    trigger_links = true;
+  }
   history.pushState({
     id: "/page/" + lang + "/" + page
   }, '', "/page/" + lang + "/" + page);
@@ -44,10 +47,12 @@ load_convergences = function(lang, page) {
     sorted = _(_.pairs(data["stats"])).sortBy(function(a) {
       return -compute_convergence(a[1]);
     });
+    if (trigger_links) {
+      load_links(lang, page, sorted[0][0]);
+    }
     source_lang = lang;
     source_page = page;
     h2 = $(document.createElement('h2')).addClass("title").html("Convergences of translations of <a href=\"http://" + source_lang + ".wikipedia.org/wiki/" + source_page + "\" class=\"page\">" + source_page + "<span class=\"lang\">" + source_lang + "</span></a>").appendTo(div);
-    load_links(lang, page, sorted[0][0]);
     legend = "<div class=\"legend\">\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#cf75ff\" opacity=\"0.3\"></rect></svg> links in language A that have no translation in language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#cf75ff\" opacity=\"0.6\"></rect></svg> links of page in language A but absent from language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#32ace9\" opacity=\"0.9\"></rect></svg> common links between language A and language B</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#09c784\" opacity=\"0.6\"></rect></svg> links of page in language B but absent from language A</p>\n<p><svg width=\"20\" height=\"20\"><rect  width=\"20\" height=\"20\" fill=\"#09c784\" opacity=\"0.3\"></rect></svg> links in language B that have no translation in language A</p>\n</div>";
     $(legend).appendTo(div);
     _(sorted).each(function(array) {
@@ -237,7 +242,7 @@ routes = {
     return load_convergences(source, decodeURIComponent(page));
   },
   "/page/:source/:page/:target": function(source, page, target) {
-    load_convergences(source, decodeURIComponent(page));
+    load_convergences(source, decodeURIComponent(page), false);
     return load_links(source, decodeURIComponent(page), target);
   },
   "/about": function() {

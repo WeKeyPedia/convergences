@@ -36,10 +36,10 @@ load_pages = (data)->
     $("#list-pages").append(ul)
 
 compute_convergence = (stats)->
-#  return stats["intersection"]/(stats["left"] + 0.0001) + stats["intersection"]/(stats["right"] + 0.0001)
+  # return stats["intersection"]/(stats["left"] + 0.0001) + stats["intersection"]/(stats["right"] + 0.0001)
   return stats["intersection"]/((stats["left"] + stats["right"]) * 0.5)
 
-load_convergences = (lang, page)->
+load_convergences = (lang, page, trigger_links=true)->
   history.pushState({id: "/page/#{lang}/#{page}"}, '', "/page/#{lang}/#{page}");
 
   $.get "/api/#{lang}/#{page}", (data)->
@@ -51,6 +51,9 @@ load_convergences = (lang, page)->
 
     sorted = _(_.pairs(data["stats"])).sortBy (a)-> -compute_convergence(a[1])
 
+    if trigger_links
+      load_links(lang, page, sorted[0][0])
+
     source_lang = lang
     source_page = page
 
@@ -58,8 +61,6 @@ load_convergences = (lang, page)->
       .addClass("title")
       .html("Convergences of translations of <a href=\"http://#{source_lang}.wikipedia.org/wiki/#{source_page}\" class=\"page\">#{source_page}<span class=\"lang\">#{source_lang}</span></a>")
       .appendTo(div)
-
-    load_links(lang, page, sorted[0][0])
 
     # $(draw_convergences_chart(sorted)[0])
     #   .appendTo(div)
@@ -516,7 +517,7 @@ $(document).ready ()->
 routes =
   "/page/:source/:page": (source, page)-> load_convergences(source, decodeURIComponent(page))
   "/page/:source/:page/:target": (source, page, target)->
-    load_convergences(source, decodeURIComponent(page))
+    load_convergences(source, decodeURIComponent(page), false)
     load_links(source, decodeURIComponent(page), target)
   "/about": ()->
     $("#about").show()
