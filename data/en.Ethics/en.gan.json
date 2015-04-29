@@ -1,7 +1,7 @@
 ﻿{
   "Idealism": "唯心主義",
   "Epistemology": "知識論",
-  "Philosophy": "哲學",
+  "Plato": "柏拉圖",
   "Knowledge": "知識",
   "Thomas Aquinas": "托馬·阿奎那",
   "Empiricism": "經驗主義",
@@ -11,7 +11,7 @@
   "Marxism": "馬克思主義",
   "Postmodernism": "後現代主義",
   "Existentialism": "存在主義",
-  "Plato": "柏拉圖",
+  "Philosophy": "哲學",
   "Hedonism": "享樂主義",
   "Ontology": "存在論",
   "Materialism": "唯物主義",
@@ -26,8 +26,8 @@
   "Family": "家庭",
   "Friedrich Nietzsche": "尼采",
   "Aristotle": "亞里斯多德",
-  "Taoism": "道教",
+  "Confucianism": "儒家",
   "Metaphysics": "形而上學",
   "Happiness": "幸福",
-  "Confucianism": "儒家"
+  "Taoism": "道教"
 }

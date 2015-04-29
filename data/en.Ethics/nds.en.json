@@ -1,15 +1,15 @@
 ﻿{
   "Aristoteles": "Aristotle",
-  "Ethos": "Ethos",
   "Theologie": "Theology",
   "Wetenschop": "Science",
+  "Mehrtall": "Plural",
   "Ooltgreeksche Spraak": "Ancient Greek",
-  "Latiensche Spraak": "Latin",
+  "Philosophie": "Philosophy",
   "Kennistheorie": "Epistemology",
+  "Gott": "God",
   "Metaphysik": "Metaphysics",
   "Sokrates": "Socrates",
-  "Philosophie": "Philosophy",
-  "Mehrtall": "Plural",
-  "Gott": "God",
+  "Latiensche Spraak": "Latin",
+  "Ethos": "Ethos",
   "Logik": "Logic"
 }

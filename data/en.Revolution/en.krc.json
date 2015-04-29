@@ -1,11 +1,12 @@
 ﻿{
   "French Revolution": "Уллу француз революция",
-  "Sociology": "Социология",
+  "Communism": "Коммунизм",
   "Democracy": "Демократия",
   "State (polity)": "Кърал",
   "Industrial Revolution": "Индустриял революция",
   "Referendum": "Референдум",
-  "Communism": "Коммунизм",
+  "Sociology": "Социология",
+  "Marxism": "Марксизм",
   "American Civil War": "АБШ-да граждан къазауат",
   "War": "Къазауат",
   "Economy": "Экономика",
@@ -17,7 +18,6 @@
   "Communitarianism": "Коммунитаризм",
   "Law": "Хакъ",
   "Spain": "Испания",
-  "Society": "Джамагъат",
   "Anarchism": "Анархизм",
   "Dictatorship": "Диктатура",
   "Philippines": "Филиппинле",
@@ -28,7 +28,9 @@
   "Conservatism": "Консерватизм",
   "History": "Тарих",
   "Revolution": "Революция",
+  "Peace": "Мамырлыкъ",
   "Culture": "Культура",
+  "Society": "Джамагъат",
   "Technology": "Технология",
   "Liberalism": "Либерализм"
 }

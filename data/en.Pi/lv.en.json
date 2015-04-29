@@ -1,9 +1,9 @@
 ﻿{
   "Perimetrs": "Perimeter",
   "Diametrs": "Diameter",
-  "Algebrisks skaitlis": "Algebraic number",
   "Pī (nozīmju atdalīšana)": "Pi (disambiguation)",
   "Transcendents skaitlis": "Transcendental number",
+  "Iracionāls skaitlis": "Irrational number",
   "Arhimēds": "Archimedes",
   "Eiklīda ģeometrija": "Euclidean geometry",
   "Pī (burts)": "Pi (letter)",
@@ -13,7 +13,7 @@
   "Leonards Eilers": "Leonhard Euler",
   "Trigonometrija": "Trigonometry",
   "Polinoms": "Polynomial",
-  "Iracionāls skaitlis": "Irrational number",
+  "Algebrisks skaitlis": "Algebraic number",
   "Babilonija": "Babylonia",
   "Datorzinātne": "Computer science"
 }

@@ -1,9 +1,9 @@
 ﻿{
   "Turkey": "Turkiya",
-  "Plato": "Platon",
+  "Philosophy": "Filosofía",
   "Chaim Weizmann": "Haim Weizmann",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
-  "Philosophy": "Filosofía",
+  "Plato": "Platon",
   "Berlin": "Berlin",
   "Enrico Fermi": "Enriko Fermi",
   "Galileo Galilei": "Galileo Galilei",
@@ -14,6 +14,7 @@
   "Austria-Hungary": "Imperio Ostro-Ungario",
   "United States": "Estatos Unitos d'Amerika",
   "Baden-Württemberg": "באדין-בורטינבירג",
+  "Adolf Hitler": "Adolf Hitler",
   "David Ben-Gurion": "David Ben Gurion",
   "Switzerland": "Suisa",
   "Wolfgang Amadeus Mozart": "Wolfgang Amadeus Mozart",
@@ -25,5 +26,6 @@
   "Prague": "Praga",
   "Austria": "Ostria",
   "Aristotle": "Aristoteles",
-  "Richard Feynman": "Richard Feynman"
+  "Richard Feynman": "Richard Feynman",
+  "Albert Einstein": "Albert Einstein"
 }

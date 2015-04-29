@@ -1,12 +1,13 @@
 ﻿{
   "Turkey": "තුර්කිය",
   "Plato": "ප්ලේටෝ",
-  "Knowledge": "දැණුම",
+  "Psychology": "මනෝවේදය",
   "God": "දෙවියන්වහන්සේ",
   "Poison": "වස",
   "Christianity": "ක්‍රිස්තියානි ආගම",
+  "Buddhism": "බුද්ධාගම",
   "Memory": "මතකය (ස්මෘතිය)",
-  "Psychology": "මනෝවේදය",
+  "Knowledge": "දැණුම",
   "Latin": "ලතින්",
   "Quran": "කුර්ආන්",
   "Hebrew language": "හීබෲ භාෂාව",
@@ -14,7 +15,7 @@
   "Wisdom": "බුද්ධිය",
   "Benjamin Franklin": "බෙන්ජමින් ෆ්‍රෑන්ක්ලින්",
   "Dhammapada": "ධම්මපදය",
-  "Aristotle": "ඇරිස්ටෝටල්",
+  "Human": "මිනිසා",
   "Confucius": "කොංෆූසි",
   "Socrates": "සොක්‍රටීස්",
   "Ancient Greece": "පුරාණ ග්‍රීසිය",
@@ -25,6 +26,6 @@
   "Wisdom in Buddhism": "ප්‍රඥ්ඥාව (බුදු දහම)",
   "Jesus": "ජේසුස් තුමා",
   "Fantasy": "ෆැන්ටසි",
-  "Human": "මිනිසා",
+  "Aristotle": "ඇරිස්ටෝටල්",
   "Islam": "ඉස්ලාම්"
 }

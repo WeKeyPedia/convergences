@@ -3,16 +3,17 @@
   "White House": "Witte 'uus",
   "Franklin D. Roosevelt": "Franklin Delano Roosevelt",
   "Antwerp": "Antwerpen",
-  "Plato": "Plato (filosoof)",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
+  "Philosophy": "Filosofie",
   "Singapore": "Singapoor",
   "Nicolaus Copernicus": "Nicolaus Copernicus",
-  "Philosophy": "Filosofie",
+  "Plato": "Plato (filosoof)",
   "Berlin": "Berlijn",
   "Galileo Galilei": "Galileo Galilei",
   "Marie Curie": "Marie Curie",
   "United States": "Vereênigde Staeten",
   "Immanuel Kant": "Immanuel Kant",
+  "Adolf Hitler": "Adolf Hitler",
   "Switzerland": "Zwitserland",
   "Wolfgang Amadeus Mozart": "Wolfgang Amadeus Mozart",
   "Physics": "Natuurkunde",
@@ -21,5 +22,6 @@
   "Aristotle": "Aristoteles",
   "Sri Lanka": "Sri Lanka",
   "Japan": "Japan",
-  "Sigmund Freud": "Sigmund Freud"
+  "Sigmund Freud": "Sigmund Freud",
+  "Albert Einstein": "Albert Einstein"
 }

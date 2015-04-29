@@ -4,6 +4,7 @@
   "Plato": "柏拉圖",
   "Solar eclipse": "天狗喫日頭",
   "Periodic table": "元素週期表",
+  "Empiricism": "經驗主義",
   "Rationalism": "理性主義",
   "Ludwig van Beethoven": "貝多芬",
   "Singapore": "新加坡",
@@ -19,6 +20,7 @@
   "Winston Churchill": "邱吉爾",
   "United States": "美國",
   "Immanuel Kant": "康德",
+  "Adolf Hitler": "希特勒",
   "Logic": "邏輯學",
   "Wolfgang Amadeus Mozart": "莫扎特",
   "Physics": "物理學",
@@ -31,5 +33,6 @@
   "Nobel Prize": "諾貝爾獎",
   "Henri Poincaré": "般加黑",
   "Dmitri Mendeleev": "門捷列夫",
-  "Metaphysics": "形而上學"
+  "Metaphysics": "形而上學",
+  "Albert Einstein": "愛因斯坦"
 }

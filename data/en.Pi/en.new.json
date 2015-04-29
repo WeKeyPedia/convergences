@@ -13,11 +13,12 @@
   "Tap (valve)": "हिति",
   "Algorithm": "अल्गोरिथम",
   "Geometry": "रेखागणित",
-  "Aryabhata": "आर्यभट",
-  "Electric charge": "इलेक्ट्रिक चार्ज",
+  "Isaac Newton": "आइज्याक न्युटन",
+  "Square root": "वर्गमूल",
+  "Srinivasa Ramanujan": "श्रीनिवास रामानुजन्",
   "Quantum mechanics": "क्वान्टम मेकानिक्स्",
   "Physics": "भौतिक शास्त्र",
-  "Isaac Newton": "आइज्याक न्युटन",
+  "Aryabhata": "आर्यभट",
   "Archimedes": "आर्किमिडिज",
   "Egypt": "मिस्र",
   "Energy": "ऊर्जा",
@@ -25,5 +26,6 @@
   "India": "भारत",
   "Fundamental interaction": "आधारभूत अन्तर्क्रिया",
   "Engineering": "इञ्जिनियरिङ्ग",
-  "Frequency": "फ्रिक्वेन्सी"
+  "Frequency": "फ्रिक्वेन्सी",
+  "Electric charge": "इलेक्ट्रिक चार्ज"
 }

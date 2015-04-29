@@ -4,7 +4,6 @@
   "Malta": "Malta",
   "Maximilien de Robespierre": "Maximilien Robespierre",
   "Ägypten": "Eġittu",
-  "Ägyptische Hieroglyphen": "Ġeroglifiċi Eġizzjani",
   "Napoleon Bonaparte": "Napuljun I ta' Franza",
   "Osmanisches Reich": "Imperu Ottoman",
   "Alexander der Große": "Alessandru Manju",
@@ -12,7 +11,7 @@
   "Französische Revolution": "Rivoluzzjoni Franċiża",
   "Italien": "Italja",
   "Berlin": "Berlin",
-  "Spanien": "Spanja",
+  "Ägyptische Hieroglyphen": "Ġeroglifiċi Eġizzjani",
   "Schweiz": "Żvizzera",
   "Haiti": "Ħaiti",
   "Francisco de Goya": "Francisco Goya",
@@ -26,6 +25,7 @@
   "Portugal": "Portugall",
   "Schweden": "Żvezja",
   "Kontinentalsperre": "Imblokk Kontinentali",
+  "Spanien": "Spanja",
   "Indien": "Indja",
   "Warschau": "Varsavja"
 }

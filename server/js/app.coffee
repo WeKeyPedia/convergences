@@ -194,7 +194,7 @@ load_links = (source, page, target)->
 
     ############################################################################
 
-    ra = _.difference(_(target_links).keys(), _(source_links).values())
+    ra = _.difference(_(target_links).values(), _(source_links).keys())
 
     right_absent = $(document.createElement('div'))
       .addClass("right_absent")
@@ -205,7 +205,7 @@ load_links = (source, page, target)->
       .html("#{ra.length} links which are on #{target_a} but not on #{source_a} ")
       .appendTo(right_absent)
 
-    list(ra, target)
+    list(ra, source)
       .appendTo(right_absent)
 
     ############################################################################

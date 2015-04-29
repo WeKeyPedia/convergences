@@ -15,6 +15,7 @@ import json
 from multiprocessing import Pool as ThreadPool
 
 import click
+from pync import Notifier
 
 import wekeypedia
 from wekeypedia.wikipedia.api import api as api
@@ -41,8 +42,10 @@ def api_bunch(page_titles, lang, req):
     while True:
       r = w.get(param, method="post")
 
-      if "Response" in r:
+      if hasattr(r, 'status_code'):
+        click.secho("Request error", bg="red", fg="black")
         print r
+        continue
 
       for pageid, p in r["query"]["pages"].items():
         if "langlinks" in p:
@@ -91,6 +94,11 @@ def replace_redirects(pages, lang, flat=True):
     # print i*50,i*50+50-1
     params["titles"] = "|".join(pages[i*50:i*50+50])
     resp = w.post(params)
+
+    if hasattr(resp, 'status_code'):
+      click.secho("Request error", bg="red", fg="black")
+      print resp
+      continue
 
     if "redirects" in resp["query"]:
       results = results - set([ r["from"] for r in resp["query"]["redirects"]])
@@ -151,6 +159,8 @@ def compute_source(source):
     lang = source.split("#")[1]
     source = source.split("#")[0]
 
+  Notifier.notify('begining download for {1} ({0})'.format(lang, source), title='generate_dataset.py')
+
   p = wekeypedia.WikipediaPage(source, lang)
 
   links = replace_redirects(list({ x["title"] for x in p.get_links() }), p.lang)
@@ -171,6 +181,8 @@ def compute_source(source):
   pool = ThreadPool(4)
 
   pool.map(m, [ (x[0], x[1], p.lang, p.title, options) for x in available_langs.items() ] )
+
+  Notifier.notify('download for {1} ({0}) is finised'.format(lang, source), title='generate_dataset.py')
 
   pool.close()
   pool.join()

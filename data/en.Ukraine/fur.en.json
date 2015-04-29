@@ -1,18 +1,19 @@
 ﻿{
   "Europe": "Europe",
-  "Est": "East",
+  "Ongjarie": "Hungary",
   "Romanie": "Romania",
   "Lenghe russe": "Russian language",
-  "Nord": "North",
+  "Ovest": "West",
+  "Polonie": "Poland",
   "24 di Otubar": "October 24",
   "Bielorussie": "Belarus",
-  "Ongjarie": "Hungary",
   "1945": "1945",
   "Moldavie": "Moldova",
   "Sud": "South",
-  "Polonie": "Poland",
+  "Nord": "North",
   "Russie": "Russia",
   "Republiche": "Republic",
-  "Ovest": "West",
-  "Slovachie": "Slovakia"
+  "Est": "East",
+  "Slovachie": "Slovakia",
+  "Stât": "State (polity)"
 }

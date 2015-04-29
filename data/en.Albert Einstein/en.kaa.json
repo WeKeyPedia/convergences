@@ -1,7 +1,7 @@
 ﻿{
   "Turkey": "Tu'rkiya",
-  "Plato": "Platon",
   "Wilhelm Röntgen": "Wilhelm Roentgen",
+  "Plato": "Platon",
   "Rabindranath Tagore": "Rabindranath Tagore",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
   "Singapore": "Singapur",
@@ -15,6 +15,7 @@
   "Statelessness": "Puqarasızlıq",
   "United States": "Amerika Qurama Shtatları",
   "Immanuel Kant": "Immanuel Kant",
+  "Adolf Hitler": "Adolf Hitler",
   "Ernest Rutherford": "Ernest Rutherford",
   "Switzerland": "Shveytsariya",
   "Charlie Chaplin": "Charlie Chaplin",
@@ -32,5 +33,6 @@
   "Sri Lanka": "Shri Lanka",
   "Japan": "Yaponiya",
   "University of Oxford": "Oksford u'niversitetı",
-  "Dmitri Mendeleev": "Dmitriy Mendeleev"
+  "Dmitri Mendeleev": "Dmitriy Mendeleev",
+  "Albert Einstein": "Albert Einstein"
 }

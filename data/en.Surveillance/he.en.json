@@ -1,8 +1,8 @@
 ﻿{
-  "סוגה": "Genre",
   "פושע": "Crime",
+  "סוגה": "Genre",
   "תוכנית טלוויזיה": "Television program",
-  "אדם": "Human",
+  "ריגול תעשייתי": "Industrial espionage",
   "מידע": "Information",
   "עורך דין": "Advocate",
   "חוקר פרטי": "Private investigator",
@@ -10,12 +10,12 @@
   "המאה ה-20": "20th century",
   "האזנת סתר": "Eavesdropping",
   "דיני הראיות": "Evidence (law)",
-  "גירושים": "Divorce",
+  "צילום": "Photography",
   "כלבוטק": "Kolbotek",
-  "ריגול תעשייתי": "Industrial espionage",
+  "אדם": "Human",
   "טכנולוגיה": "Technology",
   "תחקיר עיתונאי": "Investigative journalism",
   "גזל": "Theft",
-  "צילום": "Photography",
+  "גירושים": "Divorce",
   "GPS": "Global Positioning System"
 }

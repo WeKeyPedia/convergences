@@ -1,16 +1,16 @@
 ﻿{
   "Éropa": "Europe",
-  "1799": "1799",
+  "Perancis": "France",
+  "1805": "1805",
   "1804": "1804",
   "Elba": "Elba",
-  "11 Nopémber": "November 11",
-  "18 Méi": "May 18",
   "1812": "1812",
-  "Inggris": "England",
-  "1779": "1779",
+  "18 Méi": "May 18",
   "1800": "1800",
+  "Inggris": "England",
   "1821": "1821",
-  "1805": "1805",
+  "1779": "1779",
+  "1799": "1799",
   "Polandia": "Poland",
   "Swédia": "Sweden",
   "Austria": "Austria",
@@ -18,5 +18,5 @@
   "Wikipedia:Taratas": "Wikipedia:Stub",
   "15 Agustus": "August 15",
   "Walanda": "Netherlands",
-  "Perancis": "France"
+  "11 Nopémber": "November 11"
 }

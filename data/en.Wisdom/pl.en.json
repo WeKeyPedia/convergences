@@ -1,15 +1,14 @@
 ﻿{
-  "Emocja": "Emotion",
-  "Popęd (psychoanaliza)": "Psychosexual development",
+  "Augustyn z Hippony": "Augustine of Hippo",
+  "Platon": "Plato",
   "Język grecki": "Greek language",
   "Efez": "Ephesus",
-  "Platon": "Plato",
   "Stoicyzm": "Stoicism",
-  "Augustyn z Hippony": "Augustine of Hippo",
+  "Emocja": "Emotion",
   "Pradżnia": "Wisdom in Buddhism",
   "Wiedza": "Knowledge",
   "Daleki Wschód": "Far East",
-  "Karuna": "Karuṇā",
+  "Popęd (psychoanaliza)": "Psychosexual development",
   "Biblioteka Celsusa": "Library of Celsus",
   "Głupota": "Stupidity",
   "Tomasz z Akwinu": "Thomas Aquinas",
@@ -19,5 +18,6 @@
   "Księga Mądrości": "Book of Wisdom",
   "Oświecenie (religie Wschodu)": "Enlightenment (spiritual)",
   "Doświadczenie": "Experience",
-  "Etyka": "Ethics"
+  "Etyka": "Ethics",
+  "Karuna": "Karuṇā"
 }

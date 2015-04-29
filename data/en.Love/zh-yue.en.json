@@ -1,11 +1,12 @@
 ﻿{
   "男朋友": "Boyfriend",
-  "拍拖": "Dating",
   "兄弟姊妹": "Sibling",
   "友情": "Friendship",
   "老婆": "Wife",
   "結婚": "Marriage",
+  "打令": "Significant other",
   "老公": "Husband",
+  "表親": "Cousin",
   "情感": "Emotion",
   "性交": "Human sexual activity",
   "女朋友": "Girlfriend",
@@ -15,5 +16,5 @@
   "人": "Human",
   "行為": "Behavior",
   "離婚": "Divorce",
-  "打令": "Significant other"
+  "拍拖": "Dating"
 }

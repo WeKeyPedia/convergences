@@ -5,7 +5,7 @@
   "Pavia": "Pavia",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
   "Einstein (disambiguation)": "Einstein (Telplänov)",
-  "Singapore": "Singapurän",
+  "Max Planck": "Max Planck",
   "Nicolaus Copernicus": "Nicolaus Copernicus",
   "Novi Sad": "Novi Sad",
   "Philosophy": "Filosop",
@@ -28,8 +28,8 @@
   "Physics": "Füsüd",
   "Isaac Newton": "Isaac Newton",
   "Aarau": "Aarau",
-  "Zürich": "Zürich",
-  "Max Planck": "Max Planck",
+  "Prague": "Praha",
+  "Singapore": "Singapurän",
   "Metaphysics": "Metafüd",
   "Olsberg, Aargau": "Olsberg (Jveizän)",
   "Austria": "Lösterän",
@@ -38,5 +38,6 @@
   "Sri Lanka": "Sri-Lankän",
   "Japan": "Yapän",
   "Dmitri Mendeleev": "Dmitriy Mendeleyev",
-  "Prague": "Praha"
+  "Zürich": "Zürich",
+  "Albert Einstein": "Albert Einstein"
 }

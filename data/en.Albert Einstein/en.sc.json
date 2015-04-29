@@ -1,6 +1,6 @@
 ﻿{
   "Turkey": "Turkia",
-  "Philosophy": "Filosofia",
+  "Plato": "Platone",
   "Space": "Spàtziu",
   "Periodic table": "Taula periòdica de is elementos",
   "Logic": "Lògica",
@@ -8,7 +8,7 @@
   "Ludwig van Beethoven": "Ludwig van Beethoven",
   "Malaria": "Malàghera",
   "Nicolaus Copernicus": "Nicolò Copernico",
-  "Plato": "Platone",
+  "Philosophy": "Filosofia",
   "YouTube": "YouTube",
   "Milan": "Milanu",
   "Munich": "Monaco de Baviera",
@@ -35,5 +35,6 @@
   "Nobel Prize": "Premiu Nobel",
   "University of Oxford": "Universidade de Oxford",
   "Sigmund Freud": "Sigmund Freud",
-  "Bertrand Russell": "Bertrand Russell"
+  "Bertrand Russell": "Bertrand Russell",
+  "Albert Einstein": "Albert Einstein"
 }

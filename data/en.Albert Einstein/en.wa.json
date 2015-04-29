@@ -1,16 +1,17 @@
 ﻿{
   "Turkey": "Tourkeye",
-  "Philosophy": "Filozofeye",
+  "Plato": "Platon",
   "Georges Lemaître": "Georges Lemaître",
   "Periodic table": "Tåvlea periodike des elemints",
   "Antwerp": "Anverse",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
   "René Descartes": "René Descartes",
-  "Plato": "Platon",
+  "Philosophy": "Filozofeye",
   "YouTube": "YouTube (waibe)",
   "Averroes": "Averowesse",
   "Ashkenazi Jews": "Ashkenådes",
   "United States": "Estats Unis",
+  "Adolf Hitler": "Adolf Hitler",
   "David Ben-Gurion": "David Ben Gourion",
   "Logic": "Lodjike",
   "Switzerland": "Swisse",
@@ -22,5 +23,6 @@
   "Allies of World War II": "Aloyîs",
   "Aristotle": "Aristote",
   "Violin": "Violon",
-  "Dmitri Mendeleev": "Dmitriy Ivanovitch Mendeleyev"
+  "Dmitri Mendeleev": "Dmitriy Ivanovitch Mendeleyev",
+  "Albert Einstein": "Albert Einstein"
 }

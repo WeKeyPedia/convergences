@@ -107,10 +107,10 @@ load_links = function(source, page, target) {
     left_absent = $(document.createElement('div')).addClass("left_absent").appendTo(div);
     left_absent_h = $(document.createElement('h3')).addClass("small").html(la.length + " links which are on " + source_a + " but not on " + target_a + " ").appendTo(left_absent);
     list(la, source).appendTo(left_absent);
-    ra = _.difference(_(target_links).keys(), _(source_links).values());
+    ra = _.difference(_(target_links).values(), _(source_links).keys());
     right_absent = $(document.createElement('div')).addClass("right_absent").appendTo(div);
     right_absent_h = $(document.createElement('h3')).addClass("small").html(ra.length + " links which are on " + target_a + " but not on " + source_a + " ").appendTo(right_absent);
-    list(ra, target).appendTo(right_absent);
+    list(ra, source).appendTo(right_absent);
     left_untranslated = $(document.createElement('div')).addClass("left_untranslated").appendTo(div);
     left_untranslated_h = $(document.createElement('h3')).addClass("small").html(source_untranslated.length + " links from " + source_a + " which have no translation on " + target + ".wikipedia.org").appendTo(left_untranslated);
     list(source_untranslated, source).appendTo(left_untranslated);

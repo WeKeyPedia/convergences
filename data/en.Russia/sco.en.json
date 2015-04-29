@@ -1,6 +1,5 @@
 ﻿{
   "Vladivostok": "Vladivostok",
-  "Yuri Andropov": "Yuri Andropov",
   "Lithuanie": "Lithuania",
   "Mongolie": "Mongolia",
   "Naitional anthem o Roushie": "National Anthem of Russia",
@@ -11,12 +10,14 @@
   "Europe": "Europe",
   "Time zone": "Time zone",
   "Banner o Roushie": "Flag of Russia",
-  "Dmitry Medvedev": "Dmitry Medvedev",
+  "Moscow": "Moscow",
   "Roushie leid": "Russian language",
   "Coordinatit Universal Time": "Coordinated Universal Time",
   "Aurie": "Area",
   "Coat o airms o Roushie": "Coat of arms of Russia",
   "Germany": "Germany",
+  "Saunt Petersburg": "Saint Petersburg",
+  "Fowkrepublic o Cheenae": "China",
   "Norawa": "Norway",
   "Offeecial leid": "Official language",
   "Kazakhstan": "Kazakhstan",
@@ -27,6 +28,7 @@
   "Unitit Naitions Security Cooncil": "United Nations Security Council",
   "Napoleon I": "Napoleon",
   "Austrick": "Austria",
+  "Georgie": "Georgia",
   "Mikhail Gorbachev": "Mikhail Gorbachev",
   "Mongol": "Mongolian",
   "Yakutsk": "Yakutsk",
@@ -41,7 +43,7 @@
   "Soviet Union": "Soviet Union",
   "Belaroushie": "Belarus",
   "Estonie": "Estonia",
-  "Fowkrepublic o Cheenae": "China",
+  "Yuri Andropov": "Yuri Andropov",
   "Vladimir Lenin": "Vladimir Lenin",
   "Naitional anthem": "National anthem",
   "Peter the Great": "Peter the Great",
@@ -52,5 +54,5 @@
   "Caipital": "Capital",
   "Konstantin Chernenko": "Konstantin Chernenko",
   "Japan": "Japan",
-  "Moscow": "Moscow"
+  "Dmitry Medvedev": "Dmitry Medvedev"
 }

@@ -1,10 +1,9 @@
 ﻿{
   "Turkey": "Turkije",
-  "Plato": "Plato",
-  "Ludwig van Beethoven": "Ludwig van Beethoven",
-  "Violin": "Fioul",
-  "Nicolaus Copernicus": "Niklaos Kopernikus",
   "Philosophy": "Filesefie",
+  "Ludwig van Beethoven": "Ludwig van Beethoven",
+  "Nicolaus Copernicus": "Niklaos Kopernikus",
+  "Plato": "Plato",
   "YouTube": "YouTube",
   "Bertrand Russell": "Bertrand Russell",
   "Berlin": "Berlien",
@@ -12,13 +11,16 @@
   "Universe": "Hielal",
   "United States": "Verienigde Staoten van Amerika",
   "Baden-Württemberg": "Boaden-Wurttembaarg",
+  "Adolf Hitler": "Adolf Hitler",
   "Nazi Germany": "Nazi-Duutslaand",
   "Switzerland": "Zwitserlaand",
   "Wolfgang Amadeus Mozart": "Wolfgang Amadeus Mozart",
   "Physics": "Netuurkunde",
   "Isaac Newton": "Isaac Newton",
   "Prague": "Praag",
+  "Japan": "Japan",
   "Austria": "Oostnriek",
   "Aristotle": "Aristoteles",
-  "Japan": "Japan"
+  "Violin": "Fioul",
+  "Albert Einstein": "Albert Einstein"
 }

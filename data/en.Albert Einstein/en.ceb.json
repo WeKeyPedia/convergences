@@ -4,7 +4,7 @@
   "Periodic table": "Talaang peryodiko",
   "Antwerp": "Antwerpen",
   "Plato": "Platón",
-  "Avicenna": "Avicena",
+  "Hanukkah": "Ḥanuka",
   "Ludwig van Beethoven": "Ludwig van Beethoven",
   "Singapore": "Singgapura",
   "René Descartes": "René Descartes",
@@ -14,8 +14,9 @@
   "Atom": "Atom",
   "Galileo Galilei": "Galileo Galilei",
   "Bern": "Berna",
-  "Hanukkah": "Ḥanuka",
+  "Avicenna": "Avicena",
   "United States": "Estados Unidos",
+  "Adolf Hitler": "Adolf Hitler",
   "Violin": "Biyolin",
   "Switzerland": "Swisa",
   "Wolfgang Amadeus Mozart": "Wolfgang Amadeus Mozart",
@@ -25,5 +26,6 @@
   "Austria": "Awstriya",
   "Aristotle": "Aristóteles",
   "Sri Lanka": "Sri Lanka",
-  "Japan": "Hapon"
+  "Japan": "Hapon",
+  "Albert Einstein": "Albert Einstein"
 }
