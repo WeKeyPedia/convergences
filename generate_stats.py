@@ -17,16 +17,16 @@ def stats(page, source, target):
   if target in ignore_langs:
     return
 
-  with codecs.open("data/{1}.{0}/{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
+  with codecs.open(u"data/{1}.{0}/{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
     left_links = json.load(f)
 
-  with codecs.open("data/{1}.{0}/{1}.{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
+  with codecs.open(u"data/{1}.{0}/{1}.{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
     left_links_translated = json.load(f)
 
-  with codecs.open("data/{1}.{0}/{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
+  with codecs.open(u"data/{1}.{0}/{2}.json".format(page, source, target), "r", "utf-8-sig") as f:
     right_links = json.load(f)
 
-  with codecs.open("data/{1}.{0}/{2}.{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
+  with codecs.open(u"data/{1}.{0}/{2}.{1}.json".format(page, source, target), "r", "utf-8-sig") as f:
     right_links_translated = json.load(f)
 
   # print set(left_links) - { x[0] for x in left_links_translated.items() }
@@ -50,11 +50,11 @@ def compute_stats(source):
     lang = source.split("#")[1]
     source = source.split("#")[0]
 
-  langlinks = json.load(codecs.open("data/{1}.{0}.json".format(source, lang), "r", "utf-8-sig"))
+  langlinks = json.load(codecs.open(u"data/{1}.{0}.json".format(source, lang), "r", "utf-8-sig"))
 
   result = { l: stats(source, lang, l) for l in langlinks.keys() }
 
-  with codecs.open("data/{1}.{0}.stats.json".format(source, lang), "w", "utf-8-sig") as f:
+  with codecs.open(u"data/{1}.{0}.stats.json".format(source, lang), "w", "utf-8-sig") as f:
     json.dump(result, f, ensure_ascii=False, indent=2, separators=(',', ': '))
 
 ignore_langs = [ "th" ]
