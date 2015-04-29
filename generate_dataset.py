@@ -14,9 +14,18 @@ import json
 
 from multiprocessing import Pool as ThreadPool
 
+import click
+
 import wekeypedia
 from wekeypedia.wikipedia.api import api as api
 
+from generate_stats import compute_stats
+
+data_dir = "data"
+
+options = {
+  "force": False
+}
 
 def api_bunch(page_titles, lang, req):
   results = defaultdict(list)
@@ -24,12 +33,22 @@ def api_bunch(page_titles, lang, req):
 
   w = api(lang)
 
+  # print len(page_titles)
+
   for i in range(0,int(ceil(len(page_titles)/50))):
-    param["titles"] = "|".join(page_titles[i*50:i*50+50-1])
+    param["titles"] = "|".join(page_titles[i*50:i*50+50])
 
     while True:
       r = w.get(param, method="post")
-      results.update({ p["title"]: p['langlinks'] for pageid, p in r["query"]["pages"].items() if 'langlinks' in p })
+
+      if "Response" in r:
+        print r
+
+      for pageid, p in r["query"]["pages"].items():
+        if "langlinks" in p:
+          results[ p["title"] ].extend(p['langlinks'])
+
+      # results.update({ p["title"]: p['langlinks'] for pageid, p in r["query"]["pages"].items() if 'langlinks' in p })
 
       if "continue" in r:
         param.update(r["continue"])
@@ -70,7 +89,7 @@ def replace_redirects(pages, lang, flat=True):
 
   for i in range(0,int(ceil(len(pages)/50))):
     # print i*50,i*50+50-1
-    params["titles"] = "|".join(pages[i*50:i*50+50-1])
+    params["titles"] = "|".join(pages[i*50:i*50+50])
     resp = w.post(params)
 
     if "redirects" in resp["query"]:
@@ -86,6 +105,8 @@ def replace_redirects(pages, lang, flat=True):
 
 def from_to(page, source, target, dataset_name, skip=False):
   p = wekeypedia.WikipediaPage(page, source)
+
+  #links = list({ x["title"] for x in p.get_links() })
   links = replace_redirects(list({ x["title"] for x in p.get_links() }), p.lang)
 
   print( u"[{0}][{3}] {1} ---> {2} links".format(source, p.title, len(links), target) )
@@ -97,7 +118,7 @@ def from_to(page, source, target, dataset_name, skip=False):
 
   links_translated_redirects = replace_redirects(list({ x[1] for x in links_translated }), target, False)
 
-  links_translated = { x[0]: links_translated_redirects.setdefault(x[1], x[1])  for x in links_translated }
+  links_translated = { x[0]: links_translated_redirects.setdefault(x[1], x[1]) for x in links_translated }
 
   write(u"data/{0}/{1}.{2}.json".format(dataset_name, source, target), links_translated)
 
@@ -110,14 +131,15 @@ def m(args):
   page = args[1]
   p_lang = args[2]
   p_title = args[3]
+  options = args[4]
 
   if lang in ignore_langs:
     return
 
-  if not os.path.isfile(u"data/{1}.{0}/{3}.{1}.json".format(p_title, p_lang, page, lang)):
+  if options["force"] or not os.path.isfile(u"data/{1}.{0}/{3}.{1}.json".format(p_title, p_lang, page, lang)):
     from_to(page, lang, p_lang, u"{1}.{0}".format(p_title, p_lang))
 
-  if not os.path.isfile(u"data/{1}.{0}/{1}.{3}.json".format(p_title, p_lang, page, lang)):
+  if options["force"] or not os.path.isfile(u"data/{1}.{0}/{1}.{3}.json".format(p_title, p_lang, page, lang)):
     from_to(p_title, p_lang, lang, u"{1}.{0}".format(p_title, p_lang), skip=True)
 
 def compute_source(source):
@@ -148,21 +170,57 @@ def compute_source(source):
 
   pool = ThreadPool(4)
 
-  pool.map(m, [ (x[0], x[1], p.lang, p.title) for x in available_langs.items() ] )
+  pool.map(m, [ (x[0], x[1], p.lang, p.title, options) for x in available_langs.items() ] )
 
   pool.close()
   pool.join()
 
 ignore_langs = []
 
+def reset():
+  pass
+
+def current_datasets():
+  result = defaultdict(list)
+
+  files = [ f for f in os.listdir(data_dir) if os.path.isfile("/".join([ data_dir,f ])) ]
+
+  for f in [ f for f in files if "stats" not in f ]:
+    lang,page,format = f.split(".")
+    result[lang].append(page)
+
+  return result
+
+@click.command()
+@click.option("--datasets", help="list of current datasets", is_flag=True)
+@click.option("--reset", help="remove all datasets", is_flag=True)
+@click.option("--force","-f", help="force dataset creation", is_flag=True)
+@click.option("--page", "-p", default=[], help="list of pages", multiple=True)
+def cli(page, datasets, reset, force):
+  options["force"] = force
+
+  if datasets:
+    datasets = current_datasets()
+
+    for l in datasets.keys():
+      click.echo(l)
+      click.echo("-"*len(l))
+
+      for p in datasets[l]:
+        click.echo(p)
+
+      click.echo("")
+
+  if len(page) > 0:
+    sources = page
+    sources = [ s for s in sources ]
+
+    click.echo(sources)
+
+    map(compute_source, sources)
+
+    click.echo("computing statistics")
+    map(compute_stats, sources)
+
 if __name__ == "__main__":
-
-
-  if len(sys.argv) < 2:
-    sources = ["Love", "Revolution", "Wisdom", "Ethics", "Morality", "Surveillance"]
-    sources = [ "Russia", "Crimea", "Ukraine"]
-  else:
-    sources = sys.argv[1:]
-    sources = [ s.decode("utf-8") for s in sources ]
-
-  map(compute_source, sources)
+  cli()
