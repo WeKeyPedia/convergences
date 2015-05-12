@@ -5,7 +5,7 @@ Convergences is a web visualization of convergences and divergences between the 
 
 [Demo](http://convergences.wekeypedia.net)
 
-![](http://raw.github.com/wekeypedia/convergences/master/images/screenshot1.png)
+![](https://raw.githubusercontent.com/WeKeyPedia/convergences/master/images/screenshot1.png)
 
 ## installation
 
